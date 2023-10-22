@@ -1,0 +1,1768 @@
+Chapter 3
+OBSERVATIONAL STUDIES
+Consider again the causal question “does one’s looking up at the sky make other pedestrians look up too?” After
+considering a randomized experiment as in the previous chapter, you concluded that looking up so many times was
+too time-consuming and unhealthy for your neck bones. Hence you decided to conduct the following study: Find
+a nearby pedestrian who is standing in a corner and not looking up. Then find a second pedestrian who is walking
+towards the first one and not looking up either. Observe and record their behavior during the next 10 seconds.
+Repeat this process a few thousand times. You could now compare the proportion of second pedestrians who
+looked up after the first pedestrian did, and compare it with the proportion of second pedestrians who looked up
+before the first pedestrian did. Such a scientific study in which the investigator observes and records the relevant
+data is referred to as an observational study.
+If you had conducted the observational study described above, critics could argue that two pedestrians may both
+look up not because the first pedestrian’s looking up causes the other’s looking up, but because they both heard
+a thunderous noise above or some rain drops started to fall, and thus your study findings are inconclusive as to
+whether one’s looking up makes others look up. These criticisms do not apply to randomized experiments, which is
+one of the reasons why randomized experiments are central to the theory of causal inference. However, in practice,
+the importance of randomized experiments for the estimation of causal effects is more limited. Many scientific
+studies are not experiments. Much human knowledge is derived from observational studies. Think of evolution,
+tectonic plates, global warming, or astrophysics. Think of how humans learned that hot coffee may cause burns.
+This chapter reviews some conditions under which observational studies lead to valid causal inferences.
+3.1 Identifiability conditions
+Ideal randomized experiments can be used to identify and quantify average
+causal effects because the randomized assignment of treatment leads to exchangeability. Take a marginally randomized experiment of heart transplant
+and mortality as an example: if those who received a transplant had not reFor simplicity, this chapter consid- ceived it, they would have been expected to have the same death risk as those
+ers only randomized experiments in
+which all participants remain under follow-up and adhere to their
+assigned treatment throughout the
+entire study. Chapters 8 and 9 discuss alternative scenarios.
+who did not actually receive the heart transplant. As a consequence, an associational risk ratio of 0.7 from the randomized experiment is expected to equal
+the causal risk ratio.
+Observational studies, on the other hand, may be much less convincing (for
+an example, see the introduction to this chapter). A key reason for our hesitation to endow observational associations with a causal interpretation is the lack
+of randomized treatment assignment. As an example, take an observational
+study of heart transplant and mortality in which those who received the heart
+transplant were more likely to have a severe heart condition. Then, if those
+who received a transplant had not received it, they would have been expected
+to have a greater death risk than those who did not actually receive the heart
+transplant. As a consequence, an associational risk ratio of 1.1 from the observational study would be a compromise between the truly beneficial effect of
+transplant on mortality (which pushes the associational risk ratio to be under
+1) and the underlying greater mortality risk in those who received transplant
+28 Observational studies
+(which pushes the associational risk ratio to be over 1). The best explanation
+for an association between treatment and outcome in an observational study
+is not necessarily a causal effect of the treatment on the outcome.
+While recognizing that randomized experiments have intrinsic advantages
+for causal inference, sometimes we are stuck with observational studies to answer causal questions. What do we do? We analyze our data as if treatment
+had been randomly assigned conditional on measured covariates L—though we
+often know this is at best an approximation. Causal inference from observational data then revolves around the hope that the observational study can be
+viewed as a conditionally randomized experiment.
+Informally, an observational study can be conceptualized as a conditionally
+Table 3.1 randomized experiment if the following conditions hold:
+L A Y
+Rheia 0 0 0
+Kronos 0 0 1
+Demeter 0 0 0
+Hades 0 0 0
+Hestia 0 1 0
+Poseidon 0 1 0
+Hera 0 1 0
+Zeus 0 1 1
+Artemis 1 0 1
+Apollo 1 0 1
+Leto 1 0 0
+Ares 1 1 1
+Athena 1 1 1
+Hephaestus 1 1 1
+Aphrodite 1 1 1
+Polyphemus 1 1 1
+Persephone 1 1 1
+Hermes 1 1 0
+Hebe 1 1 0
+Dionysus 1 1 0
+1. the values of treatment under comparison correspond to well-defined interventions that, in turn, correspond to the versions of treatment in the
+data
+2. the conditional probability of receiving every value of treatment, though
+not decided by the investigators, depends only on measured covariates L
+3. the probability of receiving every value of treatment conditional on L is
+greater than zero, i.e., positive
+In this chapter we describe these three conditions in the context of observational studies. Condition 1 was referred to as consistency in Chapter 1,
+condition 2 was referred to as exchangeability in the previous chapters, and
+condition 3 was referred to as positivity in Technical Point 2.3.
+We will see that these conditions are often heroic, which explains why causal
+inferences from observational studies are viewed with suspicion. However, if
+the analogy between observational study and conditionally randomized experiment happens to be correct, then we can use the methods described in the
+previous chapter—IP weighting or standardization—to identify causal effects
+from observational studies. We therefore refer to these conditions as identifiability conditions or assumptions. For example, in the previous chapter, we
+computed a causal risk ratio equal to 1 using the data in Table 2.2, which arose
+from a conditionally randomized experiment. If the same data, now shown in
+Table 3.1, had arisen from an observational study and the three identifiability
+conditions above held true, we would also compute a causal risk ratio equal to
+Rubin (1974, 1978) extended Ney- 1.
+man’s theory for randomized experiments to observational studies.
+Rosenbaum and Rubin (1983) referred to the combination of exchangeability and positivity as weak
+ignorability, and to the combination
+of full exchangeability (see Technical Point 2.1) and positivity as
+strong ignorability.
+Importantly, in ideal randomized experiments the identifiability conditions
+hold by design. That is, for a conditionally randomized experiment, we would
+only need the data in Table 3.1 to compute the causal risk ratio of 1. In
+contrast, to identify the causal risk ratio from an observational study, we would
+need to assume that the identifiability conditions held, which of course may not
+be true. Causal inference from observational data requires two elements: data
+and identifiability conditions. See Fine Point 3.1 for a more precise definition
+of identifiability.
+When any of the identifiability conditions does not hold, the analogy between observational study and conditionally randomized experiment breaks
+down. In that situation, there are other possible approaches to causal inference
+from observational data, which require a different set of identifiability conditions. One of these approaches is hoping that a predictor of treatment, referred
+to as an instrumental variable, behaves as if it had been randomly assigned conditional on the measured covariates. We discuss instrumental variable methods
+in Chapter 16.
+3.2 Exchangeability 29
+Fine Point 3.1
+Identifiability of causal effects. We say that an average causal effect is (nonparametrically) identifiable under a
+particular set of assumptions if these assumptions imply that the distribution of the observed data is compatible with
+a single value of the effect measure. Conversely, we say that an average causal effect is nonidentifiable under the
+assumptions when the distribution of the observed data is compatible with several values of the effect measure. For
+example, if the study in Table 3.1 had arisen from a conditionally randomized experiment in which the probability of
+receiving treatment depended on the value of L (and hence conditional exchangeability Y
+a⊥⊥A|L holds by design) then
+we showed in the previous chapter that the causal effect is identifiable: the causal risk ratio equals 1, without requiring
+any further assumptions. However, if the data in Table 3.1 had arisen from an observational study, then the causal risk
+ratio equals 1 only if we supplement the data with the assumption of conditional exchangeability Y
+a⊥⊥A|L. To identify
+the causal effect in observational studies, we need an assumption external to the data, an identifying assumption. In
+fact, if we decide not to supplement the data with the identifying assumption, then the data in Table 3.1 are consistent
+with a causal risk ratio
+• lower than 1, if risk factors other than L are more frequent among the treated.
+• greater than 1, if risk factors other than L are more frequent among the untreated.
+• equal to 1, if all risk factors except L are equally distributed between the treated and the untreated or, equivalently,
+if Y
+a⊥⊥A|L.
+This chapter discusses the three identifiability conditions for nonparametric identification of average causal effects.
+In Chapter 16, we describe alternative identifiability conditions which suffice for nonparametric identification of average
+causal effects.
+Not surprisingly, observational methods based on the analogy with a conditionally randomized experiment have been traditionally privileged in disciplines in which this analogy is often reasonable (e.g., epidemiology), whereas
+instrumental variable methods have been traditionally privileged in disciplines
+in which observational studies cannot often be conceptualized as conditionally randomized experiments given the measured covariates (e.g., economics).
+Until Chapter 16, we will focus on causal inference approaches that rely on
+the ability of the observational study to emulate a conditionally randomized
+experiment. We now describe in more detail each of the three identifiability
+conditions.
+3.2 Exchangeability
+We have already said much about exchangeability Y
+a⊥⊥A. In marginally (i.e.,
+An independent predictor of the unconditionally) randomized experiments, the treated and the untreated are
+outcome is a covariate associated
+with the outcome Y within levels of
+treatment. For dichotomous outcomes, independent predictors of
+the outcome are often referred to
+as risk factors for the outcome.
+exchangeable because the treated, had they remained untreated, would have
+experienced the same average outcome as the untreated did, and vice versa.
+This is so because randomization ensures that the independent predictors of
+the outcome are equally distributed between the treated and the untreated
+groups.
+For example, take the study summarized in Table 3.1. We said in the previous chapter that exchangeability clearly does not hold in this study because
+69% treated versus 43% untreated individuals were in critical condition L = 1
+30 Observational studies
+at baseline. This imbalance in the distribution of an independent outcome
+predictor is not expected to occur in a marginally randomized experiment (actually, such imbalance might occur by chance but let us keep working under
+the illusion that our study is large enough to prevent chance findings).
+On the other hand, an imbalance in the distribution of independent outcome predictors L between the treated and the untreated is expected by
+design in conditionally randomized experiments in which the probability of
+receiving treatment depends on L. The study in Table 3.1 is such a conditionally randomized experiment: the treated and the untreated are not
+exchangeable—because the treated had, on average, a worse prognosis at the
+start of the study—but the treated and the untreated are conditionally exchangeable within levels of the variable L. In the subset L = 1 (critical condition), the treated and the untreated are exchangeable because the treated,
+had they remained untreated, would have experienced the same average outcome as the untreated did, and vice versa. And similarly for the subset L = 0.
+An equivalent statement: conditional exchangeability Y
+a⊥⊥A|L holds in conditionally randomized experiments because, within levels of L, all other outcome
+predictors are equally distributed between the treated and untreated groups.
+Back to observational studies. When treatment is not randomly assigned
+by the investigators, the reasons for receiving treatment are likely to be associated with some outcome predictors. That is, like in a conditionally randomized
+experiment, the distribution of outcome predictors will generally vary between
+In Chapter 7, we will refer to these the treated and untreated groups in an observational study. For example, the
+type of outcome predictors as confounders.
+data in Table 3.1 could have arisen from an observational study in which doctors tend to direct the scarce heart transplants to those who need them most,
+i.e., individuals in critical condition L = 1. In fact, if the only outcome predictor that is unequally distributed between the treated and the untreated is
+L, then one can refer to the study in Table 3.1 as either (i) an observational
+study in which the probability of treatment A = 1 is 0.75 among those with
+L = 1 and 0.50 among those with L = 0, or (ii) a (non blinded) conditionally
+randomized experiment in which investigators randomly assigned treatment
+A = 1 with probability 0.75 to those with L = 1 and 0.50 to those with L = 0.
+Both characterizations of the study are logically equivalent. Under either characterization, conditional exchangeability Y
+a⊥⊥A|L holds and standardization
+or IP weighting can be used to identify the causal effect.
+Of course, the crucial question for the observational study is whether L is
+the only outcome predictor that is unequally distributed between the treated
+and the untreated. Sadly, the question must remain unanswered, so our investigators need to be willing to work under the assumption that conditional
+exchangeability Y
+a⊥⊥A|L holds. Also, note that not all variables that are unequally distributed between treatment groups need to be included in L. For
+example, heart transplants are assigned to individuals with low probability of
+rejecting the transplant, i.e., a heart with certain human leukocyte antigen
+(HLA) genes will be assigned to an individual who happen to have compatible
+genes. Because HLA genes are not predictors of mortality, conditional on L
+and A, then treatment assignment is essentially random within levels of L and
+thus HLA needs not be considered in the analysis.
+In the absence of randomization, there is no guarantee that conditional exchangeability holds. For example, suppose that, unknown to the investigators,
+doctors prefer to transplant hearts into nonsmokers. Consider two individuals
+with L = 1. One of them is a smoker (U = 1) and the other one is a nonsmoker
+(U = 0), the one with U = 1 has a lower probability of receiving treatment
+A = 1. When the distribution of smoking, an important outcome predictor,
+3.2 Exchangeability 31
+Fine Point 3.2
+Crossover randomized experiments. In Fine Point 2.1, we described crossover experiments in which an individual
+is observed during two or more periods—say t = 0 and t = 1—and the individual receives a different treatment value
+in each period. We showed that individual causal effects can be identified in crossover experiments when the following
+three strong conditions hold: i) no carryover effect of treatment: Y
+a0,a1
+it=1 = Y
+a1
+it=1, ii) the individual causal effect does
+not depend on time: Y
+at=1
+it − Y
+at=0
+it = αi for t = 0, 1, and iii) the counterfactual outcome under no treatment does
+not depend on time: Y
+at=0
+it = βi for t = 0, 1. No randomization was required. We now turn our attention to crossover
+randomized experiments in which the order of treatment values that an individual receives is randomly assigned.
+Randomized treatment assignment becomes important when, due to possible temporal effects, we do not assume iii)
+holds. For simplicity, assume that every individual is randomized to either (Ai1 = 1, Ai0 = 0) or (Ai1 = 0, Ai0 = 1)
+with probability 0.5. Let Y
+a1=0
+i1 − Y
+a0=0
+i0 = ri
+. Then, under i) and ii) and consistency, if Ai0 = 0 and Ai1 = 1,
+then Yi1 − Yi0 = αi + ri
+, and if Ai1 = 0 and Ai0 = 1, then Yi0 − Yi1 = αi − ri
+. Because ri
+is unknown we can
+no longer identify individual causal effects but, since Ai1 and Ai0 are randomized and therefore independent of ri
+, the
+mean of (Yi1 − Yi0) Ai1 + (Yi0 − Yi1) Ai0 estimates the average causal effect, i.e., E [αi
+]. If we only assume i), then
+this mean estimates the average of the average treament effects at times 0 and 1, i.e., (E [αi1] + E [αi0]) /2, where
+αit = Y
+at=1
+it − Y
+at=0
+it .
+In conclusion, if assumption 1) of no carryover effect holds, then a crossover experiment can be used to estimate
+average causal effects. However, for the type of treatments and outcomes we study in this book, the assumption of no
+carryover effect is implausible.
+We use U to denote unmeasured differs between the treated (with lower proportion of smokers U = 1) and the
+variables. Because unmeasured
+variables cannot be used for standardization or IP weighting, the
+causal effect cannot be identified
+when the measured variables L are
+insufficient to achieve conditional
+exchangeability.
+untreated (with higher proportion of smokers) in the stratum L = 1, conditional exchangeability given L does not hold. Importantly, collecting data
+on smoking would not prevent the possibility that other imbalanced outcome
+predictors, unknown to the investigators, remain unmeasured.
+Thus exchangeability Y
+a⊥⊥A|L may not hold in observational studies. Specifically, conditional exchangeability Y
+a⊥⊥A|L will not hold if there exist unmeasured independent predictors U of the outcome such that the probability of
+receiving treatment A depends on U within strata of L. Worse yet, even if
+conditional exchangeability Y
+a⊥⊥A|L held, the investigators cannot empirically verify that is actually the case. How can they check that the distribution
+of smoking is equal in the treated and the untreated if they have not collected
+data on smoking? What about all the other unmeasured outcome predictors
+U that may also be differentially distributed between the treated and the unTo verify conditional exchange- treated? When analyzing an observational study under conditional exchangeability, one needs to confirm
+that Pr [Y
+a = 1|A = a, L = l] =
+Pr [Y
+a = 1|A ̸= a, L = l]. But this
+is logically impossible because, for
+individuals who do not receive
+treatment a (A ̸= a) the value of
+Y
+a
+is unknown and so the right
+hand side cannot be empirically
+evaluated.
+ability, we must hope that our expert knowledge guides us correctly to collect
+enough data so that the assumption is at least approximately true.
+Investigators can use their expert knowledge to enhance the plausibility
+of the conditional exchangeability assumption. They can measure many relevant variables L (e.g., determinants of the treatment that are also independent
+outcome predictors), rather than only one variable as in Table 3.1, and then assume that conditional exchangeability is approximately true within the strata
+defined by the combination of all those variables L. Unfortunately, no matter how many variables are included in L, there is no way to test that the
+assumption is correct, which makes causal inference from observational data
+a risky task. The validity of causal inferences requires that the investigators’
+expert knowledge is correct. This knowledge, encoded as the assumption of
+exchangeability conditional on the measured covariates, supplements the data
+in an attempt to identify the causal effect of interest.
+32 Observational studies
+3.3 Positivity
+Some investigators plan to conduct an experiment to compute the average effect of heart transplant A on 5-year mortality Y . It goes without saying that
+the investigators will assign some individuals to receive treatment level A = 1
+and others to receive treatment level A = 0. Consider the alternative: the
+investigators assign all individuals to either A = 1 or A = 0. That would be
+silly. With all the individuals receiving the same treatment level, computing
+the average causal effect would be impossible. Instead we must assign treatment so that, with near certainty, some individuals will be assigned to each of
+the treatment groups. In other words, we must ensure that there is a probability greater than zero—a positive probability—of being assigned to each of
+the treatment levels. This is the positivity condition.
+We did not emphasize positivity when describing experiments because positivity is taken for granted in those studies. In marginally randomized exThe positivity condition is some- periments, the probabilities Pr [A = 1] and Pr [A = 0] are both positive by
+times referred to as the experimental treatment assumption.
+design. In conditionally randomized experiments, the conditional probabilities Pr [A = 1|L = l] and Pr [A = 0|L = l] are also positive by design for all
+levels of the variable L that are eligible for the study. For example, if the
+data in Table 3.1 had arisen from a conditionally randomized experiment, the
+conditional probabilities of assignment to heart transplant would have been
+Pr [A = 1|L = 1] = 0.75 for those in critical condition and Pr [A = 1|L = 0] =
+0.50 for the others. Positivity holds, conditional on L, because neither of
+these probabilities is 0 (nor 1, which would imply that the probability of no
+heart transplant A = 0 would be 0). Thus we say that there is positivity if
+Pr [A = a|L = l] > 0 for all a involved in the causal contrast. Actually, this
+definition of positivity is incomplete because, if our study population were restricted to the group L = 1, then there would be no need to require positivity
+Positivity: Pr [A = a|L = l] > 0 in the group L = 0. Positivity is only needed for the values l that are present
+for all values l with Pr [L = l] ̸= 0
+in the population of interest.
+in the population of interest.
+In addition, positivity is only required for the variables L that are required
+for exchangeability. For example, in the conditionally randomized experiment
+of Table 3.1, we do not ask ourselves whether the probability of receiving
+treatment is greater than 0 in individuals with blue eyes because the variable
+“having blue eyes” is not necessary to achieve exchangeability between the
+treated and the untreated. (The variable “having blue eyes” is not an independent predictor of the outcome Y conditional on L and A, and was not even
+used to assign treatment.) That is, the standardized risk and the IP weighted
+risk are equal to the counterfactual risk after adjusting for L only; positivity
+does not apply to variables that, like “having blue eyes”, do not need to be
+adjusted for.
+In observational studies, neither positivity nor exchangeability are guaranteed. For example, positivity would not hold if doctors always transplant a
+heart to individuals in critical condition L = 1, i.e., if Pr [A = 0|L = 1] = 0,
+as shown in Figure 3.1. A difference between the conditions of exchangeability and positivity is that positivity can sometimes be empirically verified (see
+Chapter 12). For example, if Table 3.1 corresponded to data from an observational study, we would conclude that positivity holds for L because there are
+people at all levels of treatment (i.e., A = 0 and A = 1) in every level of L
+(i.e., L = 0 and L = 1).Our discussion of standardization and IP weighting
+in the previous chapter was explicit about the exchangeability condition, but
+only implicitly assumed the positivity condition (explicitly in Technical Point
+2.3). Our previous definitions of standardized risk and IP weighted risk are
+3.4 Consistency: First, define the counterfactual outcome 33
+actually only meaningful when positivity holds. To intuitively understand why
+the standardized and IP weighted risk are not well-defined when the positivity condition fails, consider Figure 3.1. If there were no untreated individuals
+(A = 0) with L = 1, the data would contain no information to simulate what
+would have happened had all treated individuals been untreated because there
+would be no untreated individuals with L = 1 that could be considered exchangeable with the treated individuals with L = 1. See Technical Point 3.1
+for details.
+Figure 3.1
+3.4 Consistency: First, define the counterfactual outcome
+Consistency means that the observed outcome for every treated individual
+equals her outcome if she had received treatment, and that the observed outcome for every untreated individual equals her outcome if she had remained
+untreated, i.e., Y
+a = Y for every individual with A = a. This statement seems
+so obviously true that some readers may be wondering whether there are any
+situations in which consistency does not hold. After all, if I take aspirin A = 1
+and I die (Y = 1), isn’t it the case that my counterfactual outcome Y
+a=1 unRobins and Greenland (2000) ar- der aspirin equals 1 by definition? The apparent simplicity of the consistency
+gued that well-defined counterfactuals, or mathematically equivalent
+concepts, are necessary for meaningful causal inference.
+condition is deceptive. Let us unpack consistency by explicitly describing its
+two main components: (1) a precise definition of the counterfactual outcomes
+Y
+a via a detailed specification of the superscript a, and (2) the linkage of the
+counterfactual outcomes to the observed outcomes. This section deals with the
+first component of consistency.
+Consider again a randomized experiment of heart transplant A and 5-year
+mortality Y . Before enrolling patients in the study, the investigators wrote
+a protocol in which the two interventions of interest—heart transplant a = 1
+and medical therapy a = 0—were described in detail. For example, the investigators specified that individuals assigned to heart transplant were to receive
+certain pre-operative procedures, anesthesia, surgical technique, post-operative
+34 Observational studies
+Technical Point 3.1
+Positivity for standardization and IP weighting. We have defined the standardized mean for treatment level
+a as P
+l
+E [Y |A = a, L = l] Pr [L = l]. However, this expression can only be computed if the conditional quantity E [Y |A = a, L = l] is well defined, which will be the case when the conditional probability Pr [A = a|L = l] is
+greater than zero for all values l that occur in the population. That is, when positivity holds. (Note the statement
+Pr [A = a|L = l] > 0 for all l with Pr [L = l] ̸= 0 is effectively equivalent to f [a|L] > 0 with probability 1.) Therefore,
+the standardized mean is defined as
+X
+l
+E [Y |A = a, L = l] Pr [L = l] if Pr [A = a|L = l] > 0 for all l with Pr [L = l] ̸= 0,
+and is undefined otherwise. The standardized mean can be computed only if, for each value of the covariate L in the
+population, there are some individuals that received the treatment level a.
+The IP weighted mean E
+
+I (A = a) Y
+f [A|L]
+
+is no longer equal to E
+
+I (A = a) Y
+f [a|L]
+
+when positivity does not hold.
+Specifically, E
+
+I (A = a) Y
+f [a|L]
+
+is undefined because the undefined ratio 0
+0
+occurs in computing the expectation. On the
+other hand, the IP weighted mean E
+
+I (A = a) Y
+f [A|L]
+
+is always well defined since its denominator f [A|L] can never be
+zero. However, it is now a biased estimate of the counterfactual mean even under exchangeability when positivity fails
+to hold. In particular, E
+
+I (A = a) Y
+f [A|L]
+
+is equal to Pr [L ∈ Q(a)]P
+l
+E [Y |A = a, L = l, L ∈ Q(a)] Pr [L = l|L ∈ Q(a)]
+where Q(a) = {l; Pr (A = a|L = l) > 0} is the set of values l for which A = a may be observed with positive probability.
+Therefore, under exchangeability, E
+
+I (A = a) Y
+f [A|L]
+
+equals E [Y
+a
+|L ∈ Q(a)] Pr [L ∈ Q(a)].
+From the definition of Q(a), Q(0) cannot equal Q(1) when A is binary and positivity does not hold. In this case the
+contrast E
+
+I (A = 1) Y
+f [A|L]
+
+− E
+
+I (A = 0) Y
+f [A|L]
+
+has no causal interpretation, even under exchangeability, because it is a
+contrast between two different groups. Under positivity, Q(1) = Q(0) and the contrast is the average causal effect if
+exchangeability holds.
+care, and immunosuppressive therapy in an attempt to ensure that each individual receives the same version of the treatment. Had the protocol not
+specified these details, it is possible that each doctor had conducted a differFine Point 1.2 introduced the con- ent version of the treatment “heart transplant”, perhaps using their preferred
+cept of multiple versions of treatment.
+surgical technique or immunosuppressive therapy. We define Y
+a=1 as the individual’s outcome in this study if the instructions for intervention a = 1 in
+the protocol of the experiment were followed, and analogously for Y
+a=0. For
+simplicity, we assume that all individuals followed their assigned protocol.
+In observational studies, we can similarly characterize each treatment version a. For example, for an observational study on the effect of heart transplant, we would follow the same procedure as for the randomized trial above,
+and for an observational study on the causal effect of exercise, we would specify its duration, frequency, intensity, type (swimming, running...) and how
+the time devoted to exercise would otherwise be spent (rehearsing with your
+band, watching television...). The difficulty of specifying the treatment version a increases for causal questions involving biological (e.g., blood pressure,
+LDL-cholesterol, body weight) or social (e.g., socioeconomic status) factors.
+As an example of this difficulty, consider “obesity”. Some investigators argue
+3.4 Consistency: First, define the counterfactual outcome 35
+For simplicity, we consider a tradi- that the causal effect of obesity at age 40 on, say, the risk of mortality Y by
+tional definition of obesity as body
+mass index≥30.
+age 50 (in a certain population) is of interest and that quantifying it is a valid
+scientific pursuit. However, biological states such as body mass index (and its
+dichotomization “obesity”) or blood pressure can only be changed by intervening on their causes. As a consequence, the causal effects (and associated
+counterfactuals) of the states themselves are often considered ill-defined.
+We now argue that many variables, like “obesity”, may not be sufficiently
+well-defined for quantitative causal inference. Suppose that, on Zeus’s 35th
+birthday, we decided to make him obese by age 40 by lowering his daily exercise.
+Hern´an and Taubman (2008) dis- He had a fatal myocardial infarction at age 49. Now suppose that, in a parallel
+cuss the tribulations of two world
+leaders—a despotic king and a clueless president—to estimate the effect of obesity in their countries.
+universe identical to ours, on Zeus’s 35th birthday we decided to make him
+obese by age 40 by increasing his caloric intake. He did not have a fatal
+myocardial infarction before age 50. That is, in both universes Zeus is obese,
+but only in one of them he had a fatal heart attack.
+Because Zeus’s counterfactual outcome under obesity can be either death
+or no death, we conclude that the term “obesity” is too vague to define counterfactual outcomes. Again, the problem is that we can only change the value
+of obesity by interventions (e.g., diet, exercise) that may have effects on the
+outcome through causal pathways that are believed not to involve obesity. In
+contrast, if we were interested in the causal effect on mortality of a weight
+loss pill A, this problem would not arise because changing the value of A does
+not require any other interventions (e.g., on diet or exercise). That is, the
+counterfactual outcome under the intervention “pill” is well defined for each
+individual. Of course, the value of this counterfactual outcome can still depend
+on the individual’s values of any previous interventions (e.g., on smoking and
+Questions about the effect of obe- exercise).
+sity on job discrimination—as measured by the proportion of job applicants called for a personal interview
+after the employer reviews the applicant’s resume and photograph—
+are less vague. Because the treatment is “obesity as perceived by the
+employer,” the mechanisms that led
+to obesity may be irrelevant.
+The more precisely we define the meaning of a = 1 and a = 0, the more
+precise our causal questions are. However, absolute precision in the definition
+of treatment is neither necessary nor possible. For example, for exercise, we
+do not need to specify the direction of running (clockwise or counterclockwise)
+around your neighborhood’s park. Scientists agree that the direction of running
+is irrelevant because varying it would not lead to different outcomes. That is,
+we only need sufficiently well-defined interventions a for which no meaningful
+vagueness remains.
+Which begs the question “how do we know that a treatment is sufficiently
+well-defined?” Or, equivalently, how do we know that that no meaningful
+vagueness remains? The answer is “We don’t.” Declaring a treatment sufficiently well-defined is a matter of agreement among experts based on the
+available substantive knowledge. Today we agree that the direction of running
+is irrelevant, but future research might prove us wrong if it is demonstrated
+that, say, leaning the body to the right, but not to the left, while running
+is harmful. At any point in history, experts who write the protocols of randomized experiments often attempt to eliminate as much vagueness as possible
+by employing the subject-matter knowledge at their disposal. However, some
+vagueness is inherent to all causal questions. The vagueness of causal questions
+can be reduced by a more detailed specification of treatment, but cannot be
+In pragmatic trials, the investiga- completely eliminated.
+tors may purposely choose not to
+specify all components of the intervention so that the treatment versions used in the trial reflect what
+happens in real world settings.
+In practice, the protocols of randomized experiments may fail to specify
+some relevant components of the intervention. For example, the protocol of the
+above heart transplant study did not specify the surgeon’s experience performing heart transplants. Thus, both experienced and inexperienced surgeons participated in the study. Because scant transplant experience is known to affect
+post-transplant mortality, the risk Pr[Y
+a=1 = 1] had all individuals received
+36 Observational studies
+Fine Point 3.3
+Protocols open to interpretation. It is possible that Pr[Y
+a=1 = 1] differs between two randomized experiments with
+identical populations and protocols. To see this, consider the following scenario.
+In both experiments, individuals assigned to a = 1 underwent a surgical operation according to the instructions in the
+protocol. However, the protocol did not specify how to match patients with surgeons. In the first experiment, individuals
+assigned to a = 1 were referred to and operated on by experienced surgeons if they were high risk patients, and by
+less experienced surgeons if they were low risk patients. Because of this, almost no patients died and Pr[Y
+a=1 = 1]
+was close to 0. In contrast, in the second experiment, individuals assigned to a = 1 were referred to a surgeon without
+regard to the patient’s risk and the surgeon’s experience. In this study Pr[Y
+a=1 = 1] is far from zero because many
+high-risk patients were operated on by inexperienced surgeons.
+By definition, lack of exchangeability cannot explain the difference in Pr[Y
+a=1 = 1] because both experiments were
+randomized. Rather, the difference is explained by the different versions of treatment used in each trial. Because the
+protocol did not specify how to match patients with surgeons, the two trials ended up with different results.
+treatment according to the protocol will depend on the unknown distribution
+of experience of the participating surgeons. That is, the average causal effect
+in a new community with a different distribution of surgical experience will
+differ from the effect in the trial population, even if the new population follows
+The phrase “no causation with- the exact same protocol as in the trial.
+out manipulation” (Holland 1986)
+captures the idea that meaningful
+causal inference requires sufficiently
+well-defined interventions (versions
+of treatment). However, bear in
+mind that sufficiently well-defined
+interventions may not be humanly
+feasible, or practicable, interventions at a particular time in history.
+For example, the effect of genetic
+variants on disease was considered
+sufficiently well defined even before
+the existence of technology for genetic modification.
+In fact, the value of Pr[Y
+a=1 = 1], and therefore of the average causal
+effect, may differ between two experiments conducted in the same population
+and with the same protocol. This discrepancy would arise if the protocol
+allows for a = 1 to include several versions of treatment with different causal
+effects on the outcome of interest, and different versions of treatment are used
+in each experiment. Fine Point 3.3 describes an example of two randomized
+experiments with the same protocol but different causal effects. A different
+distribution of versions of treatment affects the transportability of causal effects
+(see Chapter 4). The same considerations apply to observational studies.
+The discussion in this section illustrates an intrinsic feature of causal inference: the articulation of causal questions is contingent on domain expertise
+and informal judgment. What we view as a meaningful causal question at
+present may turn out to be viewed as too vague in the future after learning
+that unspecified components of the treatment affect the outcome and therefore
+the magnitude of the causal effect. Years from now, scientists will probably
+refine our obesity question in terms of cellular modifications which we barely
+understand at this time. Again, the term sufficiently well-defined treatment
+relies on expert consensus, which changes over time. Fine Point 3.4 links this
+discussion with previous proposals.
+Refining the causal question, until it is agreed that no meaningful vagueness
+remains, is good practice for sound causal inference. For example, declaring
+our interest in “the effect of obesity” may be viewed as just a starting point for
+a discussion during which we will sharpen the causal question by refining the
+specification of the treatment until, hopefully, a consensus is reached with our
+colleagues. The more precisely we specify the treatment, the better defined the
+causal question is and the fewer opportunities for miscommunication between
+researchers and decision makers exist.
+3.5 Consistency: Second, link counterfactuals to the observed data 37
+Fine Point 3.4
+Possible worlds. Philosophers of science have proposed counterfactual theories based on the concept of “possible
+worlds” (Stalnaker 1968, Lewis 1973). The counterfactual Ya
+is defined to be the value of Y in the world in which
+the individual received the treatment that is closest to the actual world. In particular, these philosophers assume that
+Y
+a = Y if A = a because the closest possible world to the actual world is itself. Hence, under their definition of
+counterfactuals, consistency always holds.
+When A ̸= a, the ”closest possible world” and thus the counterfactual Y
+a
+are always somewhat ill-defined and vague.
+Nonetheless, Lewis noted that his definition of counterfactuals is often useful. Robins and Greenland (2000) agreed
+but also argued that the concept of well-defined interventions should replace the concept of the closest possible world
+because, in observational studies, counterfactuals are vague and ill-defined to the degree that one fails to make precise
+the hypothetical interventions and causal contrasts under consideration.
+3.5 Consistency: Second, link counterfactuals to the observed data
+As a reminder, the consistency condition says that Y
+a = Y for individuals
+with A = a. In the previous section, we described the first component of
+consistency: sufficiently well-defined counterfactual outcomes Y
+a
+such that
+no meaningful vagueness remains. In this section, we describe the second
+component of consistency in observational studies: ensuring that the equality
+Y For an expanded discussion of the a = Y holds, i.e., linking the counterfactual outcomes to the observed data.
+issues described in Sections 3.4 and
+3.5, see the text and references in
+Hern´an (2016), and in Robins and
+Weissman (2016).
+Suppose our goal is quantifying the effect of heart transplant a = 1 vs.
+medical therapy a = 0 using observational data. We carefully specify the two
+treatment versions a = 1 and a = 0 of interest. Experts agree that a = 1 and
+a = 0 are sufficiently well-defined and, therefore, that no meaningful vagueness
+remains in the specification of the counterfactual outcomes Y
+a=1 and Y
+a=0
+.
+Specifically, we specified that heart transplant a = 1 includes certain preoperative procedures, anesthesia, surgical technique, post-operative care, and
+immunosuppressive therapy, as well as surgeons who had conducted at least 10
+heart transplants in the last five years. Now suppose that, in our observational
+data, all surgeons have conducted only between 5 and 9 heart transplants in
+the last five years. Then, our carefully defined counterfactual outcome Y
+a=1
+cannot be linked to any of the observed outcomes Y because nobody in the
+study population received the treatment version a = 1.
+That is, the validity of the consistency condition is threatened by illdefined treatments like “obesity” (previous section), but also by sufficiently
+well-defined treatments like “heart transplant” that are absent in the data
+(this section). To link the counterfactual outcomes Y
+a=1 and the observed
+outcomes Y , we have to ensure that only individuals receiving treatment version a = 1 are considered as treated individuals (A = 1) in the analysis, and
+analogously for the untreated. The implication is that, if we want to quantify
+the causal effect Pr[Y
+a=1 = 1] − Pr[Y
+a=0 = 1] using observational data, we
+need data in which some individuals received a = 1 and a = 0. Being able to
+describe a well-defined intervention a, as we did, is not helpful if the intervention does not occur in the observed data, i.e., if we cannot reasonably assume
+that the equality Y
+a = Y holds for at least some individuals.
+An obvious approach to handling the mismatch between the treatment
+version of interest and the treatment versions in the observed data is to hypothesize that the effects of those versions of treatment are identical—that is,
+that there is treatment variation irrelevance (See Fine Point 1.2). In some
+38 Observational studies
+cases, this hypothesis may be a good approximation. For example, it might
+be argued that no additional relevant experience is gained after performing 5
+transplants and, thus, that we can use observational data in which all surgeons
+conducted at least 5 transplants to correctly identify the effect of “heart transplant” a = 1 under the requirement that all surgeons had previously performed
+at least 10 heart transplants.
+In other cases, however, assuming treatment variation irrelevance may not
+be reasonable. For example, if interested in the effect of weight loss on mortality, it would be hard to justify that an intervention to modify body weight
+via, say, exercise would have the same effect on mortality as bariatric surgery.
+Matching the intervention of interest a = 1 with the observed “treatment”value
+A = 1, and therefore equating the counterfactual outcome Y
+a=1 with the observed outcome Y
+A = Y , requires collecting data on the versions of treatment.
+Confusion often arises from the Not only is this information necessary to detect a mismatch between the treatcommon practice of using the same
+letter to refer to the hypothetical
+intervention a and to the observed
+value A before enough information
+exists to match a and A.
+ment version of interest and the data at hand, but also to have an informed
+discussion about whether the available versions of treatment can be used in
+lieu of the treatment version of interest. In our heart transplant study in this
+section, if information on surgeon experience was not collected, we would not
+be able to determine whether the counterfactual Y
+a=1 can be linked to the
+observed Y .
+Because data on treatment versions are often unavailable in observational
+studies, consistency is often compromised. Since achieving consistency is not
+easy in observational studies, a good practice is to make our reasoning as
+transparent as possible, so that others can directly challenge our arguments.
+The next section describes a procedure to achieve that transparency.
+3.6 The target trial
+We have defined the average causal effect as a contrast between mean counterThe target trial—or its logi- factual outcomes under different treatment values. Because these interventions
+cal equivalents—is central to the
+causal inference framework. Dorn
+(1953), Wold (1954), Cochran
+(1972), Rubin (1974), Feinstein
+(1971), and Dawid (2000) used the
+concept. Robins (1986) generalized
+it for time-varying treatments.
+need to be well defined, we can imagine a (hypothetical) randomized experiment to quantify the causal effect of interest. We refer to that hypothetical
+experiment as the target experiment or the target trial. When conducting the
+target trial is not feasible, ethical, or timely, we resort to causal analyses of
+observational data. That is, causal inference from observational data can be
+viewed as an attempt to emulate the target trial. If the emulation is successful, there is no difference between the results from the observational study and
+from the target trial (had it been conducted).
+In this chapter, we have explored three conditions—exchangeability, positivity, consistency—that allow us to equate an observational study with a
+(conditionally randomized) target experiment. As we said in Section 3.1, if
+Fine Point 3.5 describes how to use these conditions hold, then we can apply the methods described in the previobservational data to compute the
+proportion of cases attributable to
+treatment.
+ous chapter—IP weighting or standardization—to compute causal effects from
+the observational data.
+Therefore “what randomized experiment are you trying to emulate?” is a
+key question for causal inference from observational data. For each causal
+effect that we wish to estimate using observational data, we can (i) specify the
+target trial that we would like to, but cannot, conduct, and (ii) describe how
+the observational data can be used to emulate that target trial. Specifying
+the target trial, and therefore the causal effect of interest, requires specifying
+key components of the trial’s protocol: eligibility criteria, interventions (or,
+3.6 The target trial 39
+Hern´an and Robins (2016) speci- in general, treatment strategies), outcomes, start and end of follow-up, and
+fied the key components of the target trial. The acronym PICO (Population, Intervention, Comparator,
+Outcome) is sometimes used to
+summarize some of those components (Richardson et al. 1995).
+causal contrasts.
+Therefore, a valid emulation of the target trial requires that the observational dataset includes sufficient information to identify eligible individuals,
+classify them into groups defined by the interventions they receive, and ascertain their outcomes during the follow-up. For example, to estimate the causal
+effect of heart transplant, we first specify the components of the protocol of
+the target trial, and then try to emulate each of them using the observational
+data. Such explicit emulation of the target trial improves causal inference from
+observational data by making the interventions, and therefore the causal question, well-defined (see Chapter 22 for an extended discussion of the target trial
+framework). Once the causal question is well-defined via a target trial, investigators can focus on the next fundamental problem: how to achieve conditional
+When we are concerned that as- exchangeability across groups.
+suming conditional exchangeability
+may not be reasonable given the
+available data, we can consider
+alternative identifying assumptions
+(see Chapter 16) or perform sensitivity analyses.
+All of the above assumes that the interventions of interest are sufficiently
+well-defined to translate them into a hypothetical experiment. But what can
+we do when, based on current scientific knowledge, the causal question cannot
+be translated into a target trial? As an example, consider the causal effect of
+“weight loss” on mortality in individuals who are obese and do not smoke at
+age 40. This causal question is somewhat vague because the actual intervention
+that would be implemented to bring about weight loss remains unspecified. In
+fact, it requires strong assumptions (that may be wrong) to make the causal
+effects (and associated counterfactuals) sufficiently well-defined. For example,
+we said above that it would not be reasonable to assume that the effects of
+inducing weight loss via smoking or surgery are equivalent to the effects of
+inducing weight loss via exercise or diet. But suppose that some investigators
+are willing to believe that exercise and diet only affect the outcome through
+weight loss and, therefore, that the effects of weight loss via either exercise or
+diet are the same.
+Under this strong assumption of treatment variation irrelevance, the investigators are willing to emulate a target trial of weight loss in a population of
+nonsmokers who do not receive surgery. The protocol of the target trial would
+not specify the method used to lose weight, but it would carefully specify other
+Danaei et al. (2016) tried to esti- components of the intervention. For example, the target trial would assign inmate the effect of weight loss using
+observational data. They carefully
+specified the timing of the weight
+loss over many years, but they still
+left unspecified the method used to
+lose weight.
+dividuals to lose 5% of body mass index every year, starting at age 40 and for
+as long as their body mass index stays over 25, under the assumption that it
+does not matter whether the weight loss is achieved via exercise or diet. Many
+experts would frown upon this assumption of treatment variation irrelevance
+for weight loss via either exercise or diet, but they may be open to entertain the
+assumption in other settings. For example, if interested in the effect of blood
+pressure, investigators may be willing to assume that the effect of antihypertensive medications on the outcome is fully mediated through blood pressure,
+and thus that the particular medication used to achieve a certain change in
+blood pressure is not relevant.
+An explicit specification of the interventions is also helpful to emulate the
+target trial because investigators will need to adjust for variables (e.g., history of smoking, exercise, diet...) that are necessary to achieve conditional
+exchangeability, and achieving conditional exchangeability is generally more
+difficult when the interventions are partly unspecified (see below). Even when
+it is unclear whether the interventions are sufficiently well-defined, explicit
+target trial emulation prevents investigators from making implicit consistency
+assumptions that do not cohere with their own beliefs. For example, suppose that some investigators are generally interested in learning about the
+40 Observational studies
+health effects of body weight, but they do not take the time to propose a
+target trial. Rather, they conduct an oversimplified analysis that compares
+Extreme interventions are more the risk of death in, say, obese versus nonobese individuals at age 40. That
+likely to go unrecognized when they
+are not explicitly specified.
+comparison corresponds implicitly to a target trial in which obese individuals
+are instantaneously transformed into individuals with a body mass index of
+25 at baseline (through a massive liposuction?). Such target trial cannot be
+emulated because very few people, if anyone, in the real world undergo such
+instantaneous change, and thus the counterfactual outcomes cannot be linked
+to the observed outcomes. All scientists, including those who conducted the
+data analyses, would agree that consistency does not hold.
+The conceptualization of causal inference from observational data as an
+attempt to emulate a target trial is not universally accepted. Some authors
+presuppose that “the average causal effect of A on Y ” is a well-defined quantity,
+no matter what A and Y stand for (as long as A temporally precedes Y ). Their
+For some examples of this point of argument goes like this:
+view, see Pearl (2009), Schwartz
+et al (2016), and Glymour and
+Spiegelman (2016).
+We may not precisely know which particular causal effect is
+being estimated in an observational study, but is that really so
+important if indeed some causal effect exists? There is value in
+learning that many deaths could have been prevented if all obese
+people had been forced, somehow, to be of normal weight, even
+if the intervention required for achieving that transformation is
+unspecified.
+This is an appealing argument but, as we have discussed above, it is problematic for two reasons.
+First, unspecified interventions may be unreasonable or impractical. For
+example, the apparently straightforward comparison of obese and nonobese
+individuals in observational studies masks the true complexity of interventions
+such as “make everybody in the population instantly nonobese”. Had these
+interventions been made explicit, investigators would have realized that these
+drastic changes, unlikely to be observed in the real world, are irrelevant for
+anyone considering weight loss interventions.
+Anchoring causal inferences to a target trial not only helps sharpen the
+specification of the causal question in observational analyses, but also makes
+the inferences more relevant for decision making. For example, as discussed
+above, a more reasonable, even if not yet well-defined, intervention may be to
+reduce body mass index by 5% annually.
+Second, to achieve conditional exchangeability of the treated and the untreated, investigators need to identify and measure the covariates L that make
+the groups conditionally exchangeable. However, the set of covariates L that
+result in conditional exchangeability will generally vary across treatments that
+correspond to different hypothetical interventions. The usual uncertainty regarding conditional exchangeability in observational studies is greatly exacerbated if we forgo characterizing the interventions as well as posible.
+When a target trial cannot be specified and emulated, observational data
+For an extended discussion about may still be quite useful for non-causal prediction. That obese individuals
+the differences between prediction
+and causal inference, which is a
+form of counterfactual prediction,
+see Hern´an, Hsu, and Healy (2019).
+have a higher mortality risk than nonobese individuals means that obesity is a
+predictor of—is associated with—mortality. This is an important piece of information to identify individuals at high risk of mortality. By saying that obesity
+predicts—is associated with—mortality, we remain agnostic about causality:
+obesity might predict mortality in the sense that cigarette smoking predicts
+lung cancer or in the sense that carrying a lighter predicts lung cancer. Thus
+3.6 The target trial 41
+Fine Point 3.5
+Attributable fraction. We have described effect measures like the causal risk ratio Pr[Y
+a=1 = 1]/Pr[Y
+a=0 = 1] and
+the causal risk difference Pr[Y
+a=1 = 1] − Pr[Y
+a=0 = 1], which compare the counterfactual risk under treatment a = 1
+with the counterfactual risk under treatment a = 0. However, one could also be interested in measures that compare
+the observed risk with the counterfactual risk under either treatment a = 1 or a = 0. This latter contrast allows us
+to compute the proportion of cases that are attributable to treatment in an observational study, i.e., the proportion of
+cases that would not have occurred had treatment not occurred. For example, suppose that all 20 individuals in our
+population attended a dinner in which they were served either ambrosia (A = 1) or nectar (A = 0). The following day,
+7 of the 10 individuals who received A = 1, and 1 of the 10 individuals who received A = 0, were sick. For simplicity,
+assume exchangeability of the treated and the untreated so that the causal risk ratio is 0.7/0.1 = 7 and the causal
+risk difference is 0.7 − 0.1 = 0.6. (In conditionally randomized experiments, one would compute these effect measures
+via standardization or IP weighting.) It was later discovered that the ambrosia had been contaminated by a flock of
+doves, which explains the increased risk summarized by both the causal risk ratio and the causal risk difference. We
+now address the question ‘what fraction of the cases was attributable to consuming ambrosia?’
+In this study we observed 8 cases, i.e., the observed risk was Pr [Y = 1] = 8/20 = 0.4. The risk that would have
+been observed if everybody had received a = 0 is Pr[Y
+a=0 = 1] = 0.1. The difference between these two risks is
+0.4 − 0.1 = 0.3. That is, there is an excess 30% of the individuals who did fall ill but would not have fallen ill if
+everybody in the population had received a = 0 rather than their treatment A. Because 0.3/0.4 = 0.75, we say that
+75% of the cases are attributable to treatment a = 1: compared with the 8 observed cases, only 2 cases would have
+occurred if everybody had received a = 0. This excess fraction or attributable fraction is defined as
+Pr [Y = 1] − Pr[Y
+a=0 = 1]
+Pr [Y = 1]
+See Fine Point 5.4 for a discussion of the excess fraction in the context of the sufficient-component-cause framework.
+The excess fraction is generally different from the etiologic fraction , another version of the attributable fraction which
+is defined as the proportion of cases mechanically caused by exposure. For example, suppose the untreated (A = 0)
+would have had 7 cases if they have been treated, but these 7 cases would not have contained the 1 untreated case that
+actually occurred, i.e., treatment produces 7 cases but prevents 1 case. Also suppose that, if untreated, the treated
+would have had only 1 case but different from the 7 cases they actually had. Then the excess fraction would not be
+equal to the etiologic fraction. Here the excess fraction is a lower bound on the etiologic fraction. Because the etiologic
+fraction does not rely on the concept of excess cases, it can only be computed in randomized experiments under strong
+assumptions. See Greenland and Robins, 1988 and Robins and Greenland, 1989.
+the association between obesity and mortality is an interesting hypothesisgenerating exercise and a motivation for further research (why does obesity
+predict mortality anyway?), but the magnitude of the association does not
+necessarily correspond to that of a causal effect.
+42 Observational studies
+Chapter 4
+EFFECT MODIFICATION
+So far we have focused on the average causal effect in an entire population of interest. However, many causal
+questions are about subsets of the population. Consider again the causal question “does one’s looking up at
+the sky make other pedestrians look up too?” You might be interested in computing the average causal effect of
+treatment—your looking up to the sky— in city dwellers and visitors separately, rather than the average effect in
+the entire population of pedestrians.
+The decision whether to compute average effects in the entire population or in a subset depends on the inferential
+goals. In some cases, you may not care about the variations of the effect across different groups of individuals.
+For example, suppose you are a policy maker considering the possibility of implementing a nationwide water
+fluoridation program. Because this public health intervention will reach all households in the population, your
+primary interest is in the average causal effect in the entire population, rather than in particular subsets. You will
+be interested in characterizing how the causal effect varies across subsets of the population when the intervention
+can be targeted to different subsets, or when the findings of the study need to be applied to other populations.
+This chapter emphasizes that there is not such a thing as the causal effect of treatment. Rather, the causal
+effect depends on the characteristics of the particular population under study.
+4.1 Heterogeneity of treatment effects
+Table 4.1 We started this book by computing the average causal effect of heart transV Y 0 Y
+1
+Rheia 1 0 1
+Demeter 1 0 0
+Hestia 1 0 0
+Hera 1 0 0
+Artemis 1 1 1
+Leto 1 0 1
+Athena 1 1 1
+Aphrodite 1 0 1
+Persephone 1 1 1
+Hebe 1 1 0
+Kronos 0 1 0
+Hades 0 0 0
+Poseidon 0 1 0
+Zeus 0 0 1
+Apollo 0 1 0
+Ares 0 1 1
+Hephaestus 0 0 1
+Polyphemus 0 0 1
+Hermes 0 1 0
+Dionysus 0 1 0
+plant A on death Y in a population of 20 members of Zeus’s extended family.
+We used the data in Table 1.1, whose columns show the individual values
+of the (generally unobserved) counterfactual outcomes Y
+a=0 and Y
+a=1. After examining the data in Table 1.1, we concluded that the average causal
+effect was null. Half of the members of the population would have died if
+everybody had received a heart transplant, Pr[Y
+a=1 = 1] = 10/20 = 0.5,
+and half of the members of the population would have died if nobody had received a heart transplant, Pr[Y
+a=0 = 1] = 10/20 = 0.5. The causal risk ratio
+Pr[Y
+a=1 = 1]/Pr[Y
+a=0 = 1] was 0.5/0.5 = 1 and the causal risk difference
+Pr[Y
+a=1 = 1] − Pr[Y
+a=0 = 1] was 0.5 − 0.5 = 0.
+We now consider two new causal questions: What is the average causal
+effect of A on Y in women? And in men? To answer these questions we
+will use Table 4.1, which contains the same information as Table 1.1 plus an
+additional column with an indicator V for sex: V = 1 for females (referred
+to as women in this book) and V = 0 for males (referred to as men). For
+convenience, we have rearranged the table so that women occupy the first 10
+rows, and men the last 10 rows.
+Let us first compute the average causal effect in women. To do so, we need
+to restrict the analysis to the first 10 rows of the table with V = 1. In this
+subset of the population, the risk of death under treatment is Pr[Y
+a=1 = 1|V =
+1] = 6/10 = 0.6 and the risk of death under no treatment is Pr[Y
+a=0 = 1|V =
+1] = 4/10 = 0.4. The causal risk ratio is 0.6/0.4 = 1.5 and the causal risk
+difference is 0.6 − 0.4 = 0.2. That is, on average, heart transplant A increases
+44 Effect modification
+the risk of death Y in women.
+Let us next compute the average causal effect in men. To do so, we need
+Our use of the terms “man” and torestrict the analysis to the last 10 rows of the table with V = 0. In this subset
+“woman” in this chapter can be
+viewed as a slight abuse of notation
+because these deities are gods and
+goddesses, not men and women.
+of the population, the risk of death under treatment is Pr[Y
+a=1 = 1|V = 0] =
+4/10 = 0.4 and the risk of death under no treatment is Pr[Y
+a=0 = 1|V = 0] =
+6/10 = 0.6. The causal risk ratio is 0.4/0.6 = 2/3 and the causal risk difference
+is 0.4 − 0.6 = −0.2. That is, on average, heart transplant A decreases the risk
+of death Y in men.
+Our example shows that a null average causal effect in the population does
+not imply a null average causal effect in a particular subset of the population.
+In Table 4.1, the null hypothesis of no average causal effect is true for the
+entire population, but not for men or women when taken separately. It just
+happens that the average causal effects in men and in women are of equal
+magnitude but in opposite direction. Because the proportion of each sex is
+50%, both effects cancel out exactly when considering the entire population.
+Although exact cancellation of effects is probably rare, heterogeneity of the
+individual causal effects of treatment is often expected because of variations in
+individual susceptibilities to treatment. An exception occurs when the sharp
+null hypothesis of no causal effect is true. Then no heterogeneity of effects
+exists because the effect is null for every individual and thus the average causal
+effect in any subset of the population is also null.
+We are now ready to provide a definition of effect modifier. We say that V
+See Section 6.6 for a structural clas- is a modifier of the effect of A on Y when the average causal effect of A on Y
+sification of effect modifiers. varies across levels of V . Since the average causal effect can be measured using
+different effect measures (e.g., risk difference, risk ratio), the presence of effect
+Additive effect modification: modification depends on the effect measure being used. For example, sex V
+E[Y
+a=1 − Y
+a=0|V = 1] ̸=
+E[Y
+a=1 − Y
+a=0|V = 0]
+is an effect modifier of the effect of heart transplant A on mortality Y on the
+additive scale because the causal risk difference varies across levels of V . Sex
+V is also an effect modifier of the effect of heart transplant A on mortality Y
+Multiplicative effect modification: on the multiplicative scale because the causal risk ratio varies across levels of
+E[Y
+a=1|V =1]
+E[Y a=0|V =1] ̸=
+E[Y
+a=1|V =0]
+E[Y a=0|V =0]
+We do not consider effect modification on the odds ratio scale because
+the odds ratio is rarely, if ever, the
+parameter of interest for causal inference.
+V . We only consider variables V that are not affected by treatment A as effect
+modifiers.
+In Table 4.1 the causal risk ratio is greater than 1 in women (V = 1) and
+less than 1 in men (V = 0). Similarly, the causal risk difference is greater
+than 0 in women (V = 1) and less than 0 in men (V = 0). That is, there is
+qualitative effect modification because the average causal effects in the subsets
+V = 1 and V = 0 are in the opposite direction. In the presence of qualitative
+effect modification, additive effect modification implies multiplicative effect
+modification, and vice versa. In the absence of qualitative effect modification,
+however, one can find effect modification on one scale (e.g., multiplicative) but
+not on the other (e.g., additive). To illustrate this point, suppose that, in a
+Multiplicative, but not additive, ef- second study, we computed the quantities shown to the left of this line. In
+fect modification by V :
+Pr[Y
+a=0 = 1|V = 1] = 0.8
+Pr[Y
+a=1 = 1|V = 1] = 0.9
+Pr[Y
+a=0 = 1|V = 0] = 0.1
+Pr[Y
+a=1 = 1|V = 0] = 0.2
+this study, there is no additive effect modification by V because the causal
+risk difference among individuals with V = 1 equals that among individuals
+with V = 0, i.e., 0.9 − 0.8 = 0.1 = 0.2 − 0.1. However, in this study there
+is multiplicative effect modification by V because the causal risk ratio among
+individuals with V = 1 differs from that among individuals with V = 0, i.e.,
+0.9/0.8 = 1.1 ̸= 0.2/0.1 = 2. Since one cannot generally state that there is, or
+there is not, effect modification without referring to the effect measure being
+used (e.g., risk difference, risk ratio), some authors use the term effect-measure
+modification, rather than effect modification, to emphasize the dependence of
+the concept on the choice of effect measure.
+4.2 Stratification to identify effect modification 45
+4.2 Stratification to identify effect modification
+A stratified analysis is the natural way to identify effect modification. To
+determine whether V modifies the causal effect of A on Y , one computes the
+Stratification: the causal effect of causal effect of A on Y in each level (stratum) of the variable V . In the
+A on Y is computed in each stratum of V . For dichotomous V , the
+stratified causal risk differences are:
+Pr[Y
+a=1 = 1|V = 1]−
+Pr[Y
+a=0 = 1|V = 1]
+and
+Pr[Y
+a=1 = 1|V = 0]−
+Pr[Y
+a=0 = 1|V = 0]
+previous section, we used the data in Table 4.1 to compute the causal effect
+of transplant A on death Y in each of the two strata of sex V . Because
+the causal effect differed between the two strata (on both the additive and the
+multiplicative scale), we concluded that there was (additive and multiplicative)
+effect modification by V of the causal effect of A on Y .
+But the data in Table 4.1 are not the typical data one encounters in real
+life. Instead of the two columns with each individual’s counterfactual outcomes
+Y
+a=1 and Y
+a=0, one will find two columns with each individual’s treatment
+level A and observed outcome Y . How does the unavailability of the counterfactual outcomes affect the use of stratification to detect effect modification?
+The answer depends on the study design.
+Consider first an ideal marginally randomized experiment. In Chapter 2
+we demonstrated that, leaving aside random variability, the average causal effect of treatment can be computed using the observed data. For example, the
+causal risk difference Pr[Y
+a=1 = 1] − Pr[Y
+a=0 = 1] is equal to the observed
+Table 4.2 associational risk difference Pr[Y = 1|A = 1] − Pr[Y = 1|A = 0]. The same
+Stratum V = 0
+L A Y
+Cybele 0 0 0
+Saturn 0 0 1
+Ceres 0 0 0
+Pluto 0 0 0
+Vesta 0 1 0
+Neptune 0 1 0
+Juno 0 1 1
+Jupiter 0 1 1
+Diana 1 0 0
+Phoebus 1 0 1
+Latona 1 0 0
+Mars 1 1 1
+Minerva 1 1 1
+Vulcan 1 1 1
+Venus 1 1 1
+Seneca 1 1 1
+Proserpina 1 1 1
+Mercury 1 1 0
+Juventas 1 1 0
+Bacchus 1 1 0
+reasoning can be extended to each stratum of the variable V because, if treatment assignment was random and unconditional, exchangeability is expected
+in every subset of the population. Thus the causal risk difference in women,
+Pr[Y
+a=1 = 1|V = 1] − Pr[Y
+a=0 = 1|V = 1], is equal to the associational risk
+difference in women, Pr[Y = 1|A = 1, V = 1] − Pr[Y = 1|A = 0, V = 1]. And
+similarly for men. Thus, to identify effect modification by V in an ideal experiment with unconditional randomization, one just needs to conduct a stratified
+analysis, i.e., to compute the association measure in each level of the variable
+V . Stratification can be used to compute average causal effects in subsets of
+the population, but not individual effects (see Fine Points 2.1 and 3.2).
+Consider now an ideal randomized experiment with conditional randomization. In a population of 40 people, transplant A has been randomly assigned
+with probability 0.75 to those in severe condition (L = 1), and with probability 0.50 to the others (L = 0). The 40 individuals can be classified into two
+nationalities according to their passports: 20 are Greek (V = 1) and 20 are
+Roman (V = 0). The data on L, A, and death Y for the 20 Greeks are shown
+in Table 2.2 (same as Table 3.1). The data for the 20 Romans are shown in
+Table 4.2. The population risk under treatment, Pr[Y
+a=1 = 1], is 0.55, and
+the population risk under no treatment, Pr[Y
+a=0 = 1], is 0.40. (Both risks
+are readily calculated by using either standardization or IP weighting. We
+leave the details to the reader.) The average causal effect of transplant A
+on death Y is therefore 0.55 − 0.40 = 0.15 on the risk difference scale, and
+0.55/0.40 = 1.375 on the risk ratio scale. In this population, heart transplant
+increases the mortality risk.
+As discussed in the previous chapter, the calculation of the causal effect
+would have been the same if the data had arisen from an observational study
+in which we believe that conditional exchangeability Y
+a⊥⊥A|L holds.
+We now discuss how to conduct a stratified analysis to investigate whether
+nationality V modifies the effect of A on Y . The goal is to compute the causal
+effect of A on Y in the Greeks, Pr[Y
+a=1 = 1|V = 1]−Pr[Y
+a=0 = 1|V = 1], and
+in the Romans, Pr[Y
+a=1 = 1|V = 0]−Pr[Y
+a=0 = 1|V = 0]. If these two causal
+risk differences differ, we will say that there is additive effect modification by
+46 Effect modification
+Fine Point 4.1
+Effect in the treated. This chapter is concerned with average causal effects in subsets of the population. One particular
+subset is the treated (A = 1). The average causal effect in the treated is not null if Pr[Y
+a=1 = 1|A = 1] ̸= Pr[Y
+a=0 =
+1|A = 1] or, by consistency, if
+Pr[Y = 1|A = 1] ̸= Pr[Y
+a=0 = 1|A = 1].
+That is, there is a causal effect in the treated if the observed risk among the treated individuals does not equal the
+counterfactual risk had the treated individuals been untreated. The causal risk difference in the treated is Pr[Y = 1|A =
+1] − Pr[Y
+a=0 = 1|A = 1]. The causal risk ratio in the treated, also known as the standardized morbidity ratio (SMR),
+is Pr[Y = 1|A = 1]/Pr[Y
+a=0 = 1|A = 1]. The causal risk difference and risk ratio in the untreated are analogously
+defined by replacing A = 1 by A = 0. Figure 4.1 shows the groups that are compared when computing the effect in the
+treated and the effect in the untreated.
+The average effect in the treated will differ from the average effect in the population if the distribution of individual
+causal effects varies between the treated and the untreated. That is, when computing the effect in the treated, treatment
+group A = 1 is used as a marker for the factors that are truly responsible for the modification of the effect between
+the treated and the untreated groups. However, even though one could say that there is effect modification by the
+pre-treatment variable V even if V is only a surrogate (e.g., nationality) for the causal effect modifiers, one would not
+say that there is modification of the effect A by treatment A because it sounds confusing. The effect modification is
+by unidentified variables that have a different distribution between the treatment groups.
+See Section 6.6 for a graphical representation of true and surrogate effect modifiers. The bulk of this book is focused
+on the causal effect in the population because the causal effect in the treated, or in the untreated, cannot be directly
+generalized to time-varying treatments (see Part III).
+V . And similarly for the causal risk ratios if interested in multiplicative effect
+modification.
+The procedure to compute the conditional risks Pr[Y
+a=1 = 1|V = v] and
+Pr[Y
+a=0 = 1|V = v] in each stratum v has two stages: 1) stratification by
+V , and 2) standardization by L (or, equivalently, IP weighting with weights
+Step 2 can be ignored when V is depending on L). We computed the standardized risks in the Greek stratum
+equal to the variables L that are
+needed for conditional exchangeability (see Section 4.4).
+(V = 1) in Chapter 2: the causal risk difference was 0 and the causal risk
+ratio was 1. Using the same procedure in the Roman stratum (V = 0), we can
+compute the risks Pr[Y
+a=1 = 1|V = 0] = 0.6 and Pr[Y
+a=0 = 1|V = 0] = 0.3.
+(Again, we leave the details to the reader.) Therefore, the causal risk difference
+is 0.3 and the causal risk ratio is 2 in the stratum V = 0. Because these effect
+measures differ from those in the stratum V = 1, we say that there is both
+additive and multiplicative effect modification by nationality V of the effect of
+transplant A on death Y . This effect modification is not qualitative because
+the effect is harmful or null in both strata V = 0 and V = 1.
+We have shown that, in our study population, nationality V modifies the
+effect of heart transplant A on the risk of death Y . However, we have made no
+claims about the causal mechanisms involved in such effect modification. In
+fact, it is possible that nationality is simply a marker for the causal factor that
+is truly responsible for the modification of the effect. For example, suppose
+that the quality of heart surgery is better in Greece than in Rome. One would
+then find effect modification by nationality. An intervention to improve the
+quality of heart surgery in Rome could eliminate the modification of the causal
+See Section 6.6 for a graphical rep- effect by passport-defined nationality. Whenever we want to emphasize this
+resentation of surrogate and causal
+effect modifiers.
+distinction, we will refer to nationality as a surrogate effect modifier , and to
+quality of care as a causal effect modifier .
+Therefore, our use of the term effect modification by V does not necessarily
+4.3 Why care about effect modification 47
+imply that V plays a causal role in the modification of the effect. To avoid
+potential confusions, some authors prefer to use the more neutral term “effect
+heterogeneity across strata of V ” rather than “effect modification by V .” The
+next chapter introduces “interaction,” a concept related to effect modification,
+that does attribute a causal role to the variables involved.
+Figure 4.1
+4.3 Why care about effect modification
+There are several related reasons why investigators are interested in identifying
+effect modification, and why it is important to collect data on pre-treatment
+descriptors V even in randomized experiments.
+First, if a factor V modifies the effect of treatment A on the outcome Y
+then the average causal effect will differ between populations with different
+prevalence of V . For example, the average causal effect in the population of
+Table 4.1 is harmful in women and beneficial in men, i.e., there is qualitative
+effect modification. Because there are 50% of individuals of each sex and the
+sex-specific harmful and beneficial effects are equal but of opposite sign, the
+average causal effect in the entire population is null. However, had we conducted our study in a population with a greater proportion of women (e.g.,
+graduating college students), the average causal effect in the entire population
+would have been harmful. In the presence of non-qualitative effect modification, the magnitude, but not the direction, of the average causal effect may
+vary across populations. As examples of non-qualitative effect modification,
+consider the effects of asbestos exposure (which differ between smokers and
+nonsmokers) and of universal health care (which differ between low-income
+and high-income families).
+That is, the average causal effect in a population depends on the distribution of individual causal effects in the population. There is generally no such
+a thing as “the average causal effect of treatment A on outcome Y (period)”,
+but “the average causal effect of treatment A on outcome Y in a population
+with a particular mix of causal effect modifiers.”
+48 Effect modification
+Technical Point 4.1
+Computing the effect in the treated. We computed the average causal effect in the population under conditional
+exchangeability Y
+a⊥⊥A|L for both a = 0 and a = 1. Computing the average causal effect in the treated only requires
+partial exchangeability Y
+a=0⊥⊥A|L. In other words, it is irrelevant whether the risk in the untreated, had they been
+treated, equals the risk in those who were actually treated. The average causal effect in the untreated is computed
+under the partial exchangeability condition Y
+a=1⊥⊥A|L.
+We now describe how to compute counterfactual means of the form E [Y
+a
+|A = a
+′
+] under the above assumptions of
+partial exchangeability. We do so via standardization and via IP weighting:
+• Standardization: E[Y
+a
+|A = a
+′
+] is equal to P
+l
+E [Y |A = a, L = l] Pr [L = l|A = a
+′
+]. See Miettinen (1972) and
+Greenland and Rothman (2008) for a discussion of standardized risk ratios.
+• IP weighting: E[Y
+a
+|A = a
+′
+] is equal to the IP weighted mean
+E
+
+I (A = a) Y
+f (A|L)
+Pr [A = a
+′
+|L]
+
+E
+
+I (A = a)
+f (A|L)
+Pr [A = a
+′
+|L]
+ with weights
+Pr [A = a
+′
+|L]
+f (A|L)
+. For dichotomous A, this equality was derived by Sato and Matsuyama (2003). See Hern´an and
+Robins (2006a) for further details.
+The extrapolation of causal effects computed in one population to a second
+Some refer to lack of transportabil- population is referred to as transportability of causal inferences across populaity as lack of external validity. tions (see Fine Point 4.2). In our example, the causal effect of heart transplant
+A on risk of death Y differs between men and women, and between Romans
+Hern´an and VanderWeele (2011), and Greeks. Thus the average causal effect in this population may not be transPearl and Bareinboim (2014), Dahabreh and Hern´an (2019), and
+others have discussed effect modification in relation to transporting
+inferences across populations.
+portable to other populations with a different distribution of effect modifiers
+such as sex and nationality.
+Conditional causal effects in the strata defined by the effect modifiers may
+be more transportable than the causal effect in the entire population, but
+there is no guarantee that the conditional effect measures in one population
+equal the conditional effect measures in another population. This is so because there could be other unmeasured, or unknown, causal effect modifiers
+whose conditional distributions vary between the two populations (or for other
+A setting in which transportabil- reasons described in Fine Point 4.2). These unmeasured effect modifiers are
+ity may not be an issue: Smith
+and Pell (2003) could not identify
+any major modifiers of the effect of
+parachute use on death after “gravitational challenge” (e.g., jumping
+from an airplane at high altitude).
+They concluded that conducting
+randomized trials of parachute use
+restricted to a particular group of
+people would not compromise the
+transportability of the findings to
+other groups.
+not variables needed to achieve exchangeability, but just risk factors for the
+outcome. Therefore, transportability of effects across populations is a more
+difficult problem than the identification of causal effects in a single population:
+one would need to stratify not just on all those things required to achieve exchangeability (which you might have information about, say, by interviewing
+those who decide how to allocate the treatment) but on unmeasured causes of
+the outcome for which there is much less information.
+Hence, transportability of causal effects is an unverifiable assumption that
+relies heavily on subject-matter knowledge. For example, most experts would
+agree that the health effects (on either the additive or multiplicative scale) of
+increasing a household’s annual income by $100 in Niger cannot be transported
+to the Netherlands, but most experts would agree that the health effects of use
+of cholesterol-lowering drugs in Europeans can be transported to Canadians.
+Second, evaluating the presence of effect modification is helpful to identify
+4.4 Stratification as a form of adjustment 49
+the groups of individuals that would benefit most from an intervention. In
+our example of Table 4.1, the average causal effect of treatment A on outcome
+Y was null. However, treatment A had a beneficial effect in men (V = 0),
+and a harmful effect in women (V = 1). For example, if physicians knew that
+there is qualitative effect modification by sex then, in the absence of additional
+information, they would treat the next patient only if he happens to be a man.
+The situation is slightly more complicated when, as in our second example,
+there is multiplicative, but not additive, effect modification. Here treatment
+reduces the risk of the outcome by 10% in individuals with V = 0 and also
+by 10% in individuals with V = 1, i.e., there is no additive effect modification
+by V because the causal risk difference is 0.1 in all levels of V . Thus, an
+intervention to treat all patients would be equally effective in reducing risk in
+both strata of V , despite the fact that there is multiplicative effect modification.
+In fact, if there is a nonzero causal effect in at least one stratum of V and the
+counterfactual risk Pr[Y
+a=0 = 1|V = v] varies with v, then effect modification
+is guaranteed on either the additive or the multiplicative scale.
+Additive, but not multiplicative, effect modification is the appropriate scale
+Several authors (e.g., Blot and to identify the groups that will benefit most from intervention. In the absence
+Day, 1979; Rothman et al., 1980;
+Saracci, 1980) have referred to additive effect modification as the one
+of interest for public health purposes.
+of additive effect modification, learning that there is multiplicative effect modification may not be very helpful for decision making.
+In our second example, the presence of multiplicative effect modification
+is expected because the risk under no treatment in the stratum V = 1 equals
+0.8. Thus, the maximum possible causal risk ratio in the V = 1 stratum is
+1/0.8 = 1.25, which is guaranteed to differ from the causal risk ratio of 2 in the
+V = 0 stratum. In these situations, multiplicative effect modification arises
+from the differences in risk under no treatment Pr[Y
+a=0 = 1|V = v] across
+levels of V . Therefore, as a general rule, it is more informative to report the
+(absolute) counterfactual risks Pr[Y
+a=1 = 1|V = v] and Pr[Y
+a=0 = 1|V = v]
+in every level v of V , rather than simply their ratio or difference.
+Finally, the identification of effect modification may help understand the
+biological, social, or other mechanisms leading to the outcome. For example, a
+greater risk of HIV infection in uncircumcised compared with circumcised men
+may provide new clues to understand the disease. The identification of effect
+modification may also be a first step towards characterizing the interactions
+between two treatments. The terms “effect modification” and “interaction”
+are sometimes used as synonymous in the scientific literature. This chapter
+focused on “effect modification.” The next chapter describes “interaction” as
+a causal concept that is related to, but different from, effect modification.
+4.4 Stratification as a form of adjustment
+Until this chapter, our only goal was to compute the average causal effect in
+the entire population. In the absence of marginal randomization, achieving
+this goal requires adjustment for the variables L that ensure conditional exchangeability of the treated and the untreated. For example, in Chapter 2 we
+determined that the average causal effect of heart transplant A on mortality
+Y was null, i.e., the causal risk ratio Pr
+Y
+a=1 = 1
+/Pr
+Y
+a=0 = 1
+= 1. We
+used the data in Table 2.2 to adjust for the factor L via both standardization
+and IP weighting.
+The present chapter adds another potential goal to the analysis: to identify
+effect modification by variables V . To achieve this goal, we need to stratify by
+50 Effect modification
+Fine Point 4.2
+Transportability. Effects estimated in one population are often intended to make decisions in another population—the
+target population. Can we “transport” the effect from the study population to the target population? The answer
+depends on the characteristics of both populations. Specifically, transportability of causal effects across populations
+may be justified if the following characteristics are similar between the two populations:
+• Effect modification: The causal effect of treatment may differ across individuals with different susceptibility to
+the outcome. For example, if women are more susceptible to the effects of treatment than men, we say that sex
+is an effect modifier. The distribution of effect modifiers in a population will generally affect the magnitude of the
+causal effect of treatment in that population. If the distribution of effect modifiers differs between populations,
+then the magnitude of the causal effect of treatment will differ too.
+• Versions of treatment: The causal effect of treatment depends on the distribution of versions of treatment in the
+population. If this distribution differs between the study population and the target population, then the magnitude
+of the causal effect of treatment will differ too (Hern´an and Vanderweele, 2011).
+• Interference: In the main text we focus on settings with no interference (Fine Point 1.1). Interference exists when
+treating one individual affect the outcome of others in the population. For example, a socially active individual
+may convince his friends to join him while exercising, and thus an intervention on that individual’s physical activity
+may be more effective than an intervention on a socially isolated individual. Therefore, different contact patterns
+between populations will translate into causal effects of different magnitude.
+A growing literature considers transportability methods that use data from the study population to estimate the causal
+effect in the target population in the presence of effect modification (e.g., Westreich et al. 2017, Rudolph and van der
+Laan 2017, Dahabreh et al. 2020b).
+The transportability of causal inferences across populations may sometimes be improved by restricting our attention
+to the average causal effects in the strata defined by the effect modifiers, or by using the stratum-specific effects in
+the study population to reconstruct the average causal effect in the target population. For example, the four stratumspecific effect measures (Roman women, Greek women, Roman men, and Greek men) in our population can be combined
+in a weighted average to reconstruct the average causal effect in another population with a different mix of sex and
+nationality. The weight assigned to each stratum-specific measure is the proportion of individuals in that stratum in the
+second population. However, there is no guarantee that this reconstructed effect will coincide with the true effect in the
+target population because of possible between-population differences in the distribution of unmeasured effect modifiers,
+interference patterns, and distribution of versions of treatment.
+V in addition to adjusting for L. For example, in this chapter we stratified by
+nationality V and adjusted for L to determine that the average causal effect
+of heart transplant A on mortality Y differed between Greeks and Romans.
+In summary, standardization (or IP weighting) is used to adjust for L and
+stratification is used to identify effect modification by V .
+But stratification is not always used to identify effect modification by V . In
+practice stratification is often used as an alternative to standardization (and
+IP weighting) to adjust for L. In fact, the use of stratification as a method
+to adjust for L is so widespread that many investigators consider the terms
+“stratification” and “adjustment” as synonymous. For example, suppose you
+ask an epidemiologist to adjust for the factor L to compute the effect of heart
+transplant A on mortality Y . Chances are that she will immediately split
+Table 2.2 into two subtables—one restricted to individuals with L = 0, the
+other to individuals with L = 1—and would provide the effect measure (say,
+the risk ratio) in each of them. That is, she would calculate the risk ratios
+4.5 Matching as another form of adjustment 51
+Pr [Y = 1|A = 1, L = l] /Pr [Y = 1|A = 0, L = l] = 1 for both l = 0 and l = 1.
+These two stratum-specific associational risk ratios can be endowed with a
+causal interpretation under conditional exchangeability given L: they measure
+the average causal effect in the subsets of the population defined by L = 0
+and L = 1, respectively. They are conditional effect measures. In contrast
+the risk ratio of 1 that we computed in Chapter 2 was a marginal (uncondiUnder conditional exchangeability tional) effect measure. In this particular example, all three risk ratios—the
+given L, the risk ratio in the subset
+L = l measures the average causal
+effect in the subset L = l because,
+if Y
+a⊥⊥A|L, then
+Pr [Y = 1|A = a, L = 0] =
+Pr [Y
+a = 1|L = 0]
+two conditional ones and the marginal one—happen to be equal because there
+is no effect modification by L. Stratification necessarily results in multiple
+stratum-specific effect measures (one per stratum defined by the variables L).
+Each of them quantifies the average causal effect in a nonoverlapping subset
+of the population but, in general, none of them quantifies the average causal
+effect in the entire population. Therefore, we did not consider stratification
+when describing methods to compute the average causal effect of treatment in
+the population in Chapter 2. Rather, we focused on standardization and IP
+weighting.
+In addition, unlike standardization and IP weighting, adjustment via stratification requires computing the effect measures in subsets of the population
+defined by a combination of all variables L that are required for conditional
+exchangeability. For example, when using stratification to estimate the effect
+of heart transplant in the population of Tables 2.2 and 4.2, one must compute
+the effect in Romans with L = 1, in Greeks with L = 1, in Romans with L = 0,
+and in Greeks with L = 0; but one cannot compute the effect in Romans by
+simply computing the association in the stratum V = 0 because nationality V ,
+When considering time-varying by itself, is insufficient to guarantee conditional exchangeability.
+treatments, stratum-specific effect measures may not have a
+causal interpretation even under
+exchangeability, positivity, and
+well-defined interventions (Robins
+1986, 1987). See Chapter 20.
+That is, the use of stratification forces one to evaluate effect modification
+by all variables L required to achieve conditional exchangeability, regardless of
+whether one is interested in such effect modification. In contrast, stratification
+by V followed by IP weighting or standardization to adjust for L allows one
+to deal with exchangeability and effect modification separately, as described
+above.
+Other problems associated with the use of stratification are noncollapsibility of certain effect measures like the odds ratio (see Fine Point 4.3) and
+inappropriate adjustment that leads to bias when, in the case for time-varying
+Stratification requires positivity in treatments, it is necessary to adjust for time-varying variables L that are afaddition to exchangeability: the
+causal effect cannot be computed
+in subsets L = l in which there are
+only treated, or untreated, individuals.
+fected by prior treatment (see Part III).
+Sometimes investigators compute the causal effect in only some of the strata
+defined by the variables L. That is, no stratum-specific effect measure is computed for some strata. This form of stratification is known as restriction.
+For causal inference, stratification is simply the application of restriction to
+several comprehensive and mutually exclusive subsets of the population, with
+exchangeability within each of these subsets. When positivity fails in some
+strata of the population, restriction is used to limit causal inference to those
+strata of the original population in which positivity holds (see Chapter 3).
+4.5 Matching as another form of adjustment
+Matching is another adjustment method. The goal of matching is to construct a
+subset of the population in which the variables L have the same distribution in
+both the treated and the untreated. As an example, take our heart transplant
+example in Table 2.2 in which the variable L is sufficient to achieve conditional
+52 Effect modification
+exchangeability. For each untreated individual in non critical condition (A =
+0, L = 0) randomly select a treated individual in non critical condition (A =
+1, L = 0), and for each untreated individual in critical condition (A = 0, L = 1)
+randomly select a treated individual in critical condition (A = 1, L = 1). We
+refer to each untreated individual and her corresponding treated individual as a
+matched pair, and to the variable L as the matching factor. Suppose we formed
+the following 7 matched pairs: Rheia-Hestia, Kronos-Poseidon, Demeter-Hera,
+Hades-Zeus for L = 0, and Artemis-Ares, Apollo-Aphrodite, Leto-Hermes for
+Our discussion on matching applies L = 1. All the untreated, but only a sample of treated, in the population
+to cohort studies only. In casecontrol designs (briefly discussed in
+Chapter 8), we often match cases
+and non-cases (i.e., controls) rather
+than the treated and the untreated.
+Even if the matching factors suffice for conditional exchangeability, matching in cases and controls
+does not achieve unconditional exchangeability of the treated and the
+untreated in the matched population. Adjustment for the matching
+factors via stratification is required
+to estimate conditional (stratumspecific) effect measures.
+were selected. In this subset of the population comprised of matched pairs, the
+proportion of individuals in critical condition (L = 1) is the same, by design,
+in the treated and in the untreated (3/7).
+To construct our matched population we replaced the treated in the population by a subset of the treated in which the matching factor L had the
+same distribution as that in the untreated. Under the assumption of conditional exchangeability given L, the result of this procedure is (unconditional)
+exchangeability of the treated and the untreated in the matched population.
+Because the treated and the untreated are exchangeable in the matched population, their average outcomes can be directly compared: the risk in the treated
+is 3/7, the risk in the untreated is 3/7, and hence the causal risk ratio is 1. Note
+that matching ensures positivity in the matched population because strata with
+only treated, or untreated, individuals are excluded from the analysis.
+Often one chooses the group with fewer individuals (the untreated in our
+example) and uses the other group (the treated in our example) to find their
+matches. The chosen group defines the subpopulation on which the causal
+effect is being computed. In the previous paragraph we computed the effect in
+the untreated. In settings with fewer treated than untreated individuals across
+all strata of L, we generally compute the effect in the treated. Also, matching
+needs not be one-to-one (matching pairs), but it can be one-to-many (matching
+sets).
+In many applications, L is a vector of several variables. Then, for each
+untreated individual in a given stratum defined by a combination of values of
+all the variables in L, we would have randomly selected one (or several) treated
+individual(s) from the same stratum.
+As the number of matching fac- Matching can be used to create a matched population with any chosen
+tors increases, so does the probability that no exact matches exist
+for an individual. There is a vast
+literature, beyond the scope of this
+book, on how to find approximate
+matches in those settings. See Stuart (2010) for an introduction.
+distribution of L, not just the distribution in the treated or the untreated. The
+distribution of interest can be achieved by individual matching, as described
+above, or by frequency matching. An example of the latter is a study in which
+one randomly selects treated individuals in such a way that 70% of them have
+L = 1, and then repeats the same procedure for the untreated.
+Because the matched population is a subset of the original study population,
+the distribution of causal effect modifiers in the matched study population
+will generally differ from that in the original, unmatched study population, as
+discussed in the next section.
+4.6 Effect modification and adjustment methods
+Standardization, IP weighting, stratification/restriction, and matching are different approaches to estimate average causal effects, but they estimate different
+types of causal effects. These four approaches can be divided into two groups
+according to the type of effect they estimate: standardization and IP weight-
+4.6 Effect modification and adjustment methods 53
+Technical Point 4.2
+Pooling of stratum-specific effect measures. Until Chapter 10, we avoid statistical considerations by assuming that
+we work with the entire population rather than with a sample. Thus we talk about computing causal effects rather than
+about (consistently) estimating them. In practice, however, we can rarely compute causal effects in the population. We
+estimate them from samples and wish to obtaining reasonably narrow confidence intervals around our effect estimates.
+When dealing with stratum-specific effect measures, a common approach to reduce the variability of the estimates
+is to combine all stratum-specific effect measures into one pooled stratum-specific effect measure. The idea is that, if
+there is no effect-measure modification, the pooled effect measure will be a more precise estimate of the common effect
+measure than each of the stratum-specific effect measures. Pooling methods (e.g., Woolf, Mantel-Haenszel, maximum
+likelihood) sometimes compute a weighted average of the stratum-specific effect measures with weights chosen to reduce
+the variability of the pooled estimate. Greenland and Rothman (2008) review some commonly used methods for stratified
+analysis. Pooled effect measures can also be computed using regression models that include all possible product terms
+between all covariates L, but no product terms between treatment A and covariates L, i.e., models saturated (see
+Chapter 11) with respect to L.
+The main goal of pooling is to obtain a narrower confidence interval around the common stratum-specific effect
+measure, but the pooled effect measure is still a conditional effect measure. In our heart transplant example, the pooled
+stratum-specific risk ratio (Mantel-Haenszel method) was 0.88 for the outcome Z. This result is only meaningful if
+the stratum-specific risk ratios 2 and 0.5 are indeed estimates of the same stratum-specific causal effect. For example,
+suppose that the causal risk ratio is 0.9 in both strata but, because of the small sample size, we obtained estimates of
+0.5 and 2.0. In that case, pooling would be appropriate and the Mantel-Haenszel risk ratio would be closer to the truth
+than either of the stratum-specific risk ratios. Otherwise, if the causal stratum-specific risk ratios are truly 0.5 and 2.0,
+then pooling makes little sense and the Mantel-Haenszel risk ratio could not be easily interpreted. The same issues arise
+in meta-analyses of studies with heterogeneous treatment effects (Dahabreh et al. 2020a).
+In practice, it is not always obvious to determine whether the heterogeneity of the effect measure across strata is
+due to sampling variability or to effect-measure modification. The finer the stratification, the greater the uncertainty
+introduced by random variability.
+Table 4.3 ing can be used to compute either marginal or conditional effects, stratificaL A Z
+Rheia 0 0 0
+Kronos 0 0 1
+Demeter 0 0 0
+Hades 0 0 0
+Hestia 0 1 0
+Poseidon 0 1 0
+Hera 0 1 1
+Zeus 0 1 1
+Artemis 1 0 1
+Apollo 1 0 1
+Leto 1 0 0
+Ares 1 1 1
+Athena 1 1 1
+Hephaestus 1 1 1
+Aphrodite 1 1 0
+Polyphemus 1 1 0
+Persephone 1 1 0
+Hermes 1 1 0
+Hebe 1 1 0
+Dionysus 1 1 0
+tion/restriction and matching can only be used to compute conditional effects
+in certain subsets of the population. All four approaches require exchangeability and positivity but the subsets of the population in which these conditions
+need to hold depend on the causal effect of interest. For example, to compute
+the conditional effect among individuals with L = l, any of the above methods requires exchangeability and positivity in that subset only; to estimate
+the marginal effect in the entire population, exchangeability and positivity are
+required in all levels of L.
+In the absence of effect modification, the effect measures (risk ratio or risk
+difference) computed via these four approaches will be equal. For example,
+we concluded that the average causal effect of heart transplant A on mortality
+Y was null both in the entire population of Table 2.2 (standardization and IP
+weighting), in the subsets of the population in critical condition L = 1 and non
+critical condition L = 0 (stratification), and in the untreated (matching). All
+methods resulted in a causal risk ratio equal to 1. However, the effect measures
+computed via these four approaches will not generally be equal. To illustrate
+how the effects may vary, let us compute the effect of heart transplant A on
+high blood pressure Z (1: yes, 0 otherwise) using the data in Table 4.3. We
+assume that exchangeability Z
+a⊥⊥A|L and positivity hold. We use the risk
+ratio scale for no particular reason.
+Standardization and IP weighting yield the average causal effect in the
+54 Effect modification
+Technical Point 4.3
+Relation between marginal and conditional causal risk ratios. Suppose we wish to determine under which
+conditions the marginal risk ratio Pr
+Y
+a=1 = 1
+/Pr
+Y
+a=0 = 1
+will be less than 1 given that we know the
+values of the conditional risk ratios Pr
+Y
+a=1 = 1|L = l
+
+/Pr
+Y
+a=0 = 1|L = l
+
+for each stratum l. To do so,
+note that Pr
+Y
+a=1 = 1
+/Pr
+Y
+a=0 = 1
+=
+P
+l
+
+Pr
+Y
+a=1 = 1|L = l
+
+/Pr
+Y
+a=0 = 1|L = l
+	 w (l), with w (l) =
+
+Pr
+Y
+a=0 = 1|L = l
+
+Pr [L = l]
+	
+/Pr
+Y
+a=0 = 1
+and P
+l w (l) = 1. Substituting for w (1) and w (0) followed by
+some algebraic manipulations will provide the condition under which the inequality Pr
+Y
+a=1 = 1
+/Pr
+Y
+a=0 = 1
+< 1
+holds.
+In our data example, Pr
+Y
+a=1 = 1|L = l
+
+/Pr
+Y
+a=0 = 1|L = l
+
+is 0.5 for L = 1 and 2.0 for L = 0. Therefore the marginal risk ratio will be less than 1 if and only if Pr
+Y
+a=0 = 1|L = 1
+/Pr
+Y
+a=0 = 1|L = 0
+>
+2 Pr [L = 0] /Pr [L = 1].
+entire population Pr[Z
+a=1 = 1]/Pr[Z
+a=0 = 1] = 0.8 (these and the following
+Table 4.4 calculations are left to the reader). Stratification yields the conditional causal
+V A Y
+Rheia 1 0 0
+Demeter 1 0 0
+Hestia 1 0 0
+Hera 1 0 0
+Artemis 1 0 1
+Leto 1 1 0
+Athena 1 1 1
+Aphrodite 1 1 1
+Persephone 1 1 0
+Hebe 1 1 1
+Kronos 0 0 0
+Hades 0 0 0
+Poseidon 0 0 1
+Zeus 0 0 1
+Apollo 0 0 0
+Ares 0 1 1
+Hephaestus 0 1 1
+Polyphemus 0 1 1
+Hermes 0 1 0
+Dionysus 0 1 1
+risk ratios Pr[Z
+a=1 = 1|L = 0]/Pr[Z
+a=0 = 1|L = 0] = 2.0 in the stratum L =
+0, and Pr[Z
+a=1 = 1|L = 1]/Pr[Z
+a=0 = 1|L = 1] = 0.5 in the stratum L = 1.
+Matching, using the matched pairs selected in the previous section, yields the
+causal risk ratio in the untreated Pr[Z
+a=1 = 1|A = 0]/Pr[Z = 1|A = 0] = 1.0.
+We have computed four causal risk ratios and have obtained four different
+numbers: 0.8, 2.0, 0.5, and 1.0. All of them are correct. Leaving aside random
+variability (see Technical Point 4.2), the explanation of the differences is qualitative effect modification: Treatment doubles the risk among individuals in
+noncritical condition (L = 0, causal risk ratio 2.0) and halves the risk among
+individuals in critical condition (L = 1, causal risk ratio 0.5). The average
+causal effect in the population (causal risk ratio 0.8) is beneficial because the
+ratio Pr
+Z
+a=0 = 1|L = 1
+/Pr
+Z
+a=0 = 1|L = 0
+of the counterfactual risk under no treatment in the critical group to that in the noncritical group exceeds
+2 times the odds Pr [L = 0] /Pr [L = 1] of being in the noncritical group (see
+Technical Point 4.3). The causal effect in the untreated is null (causal risk ratio
+1.0), which reflects the larger proportion of individuals in noncritical condition
+in the untreated compared with the entire population. This example highlights the primary importance of specifying the population, or the subset of a
+population, to which the effect measure corresponds.
+The previous chapter argued that a well-defined causal effect is a prerequisite for meaningful causal inference. This chapter argues that a well characterized target population is another such prerequisite. Both prerequisites are
+automatically present in experiments that compare two or more interventions
+Part II describes how standardiza- in a population that meets certain a priori eligibility criteria. However, these
+tion, IP weighting, and stratification can be used in combination
+with parametric or semiparametric
+models. For example, standard regression models are a form of stratification in which the association between treatment and outcome is estimated within levels of all the other
+covariates in the model.
+prerequisites cannot be taken for granted in observational studies. Rather, investigators conducting observational studies need to explicitly define the causal
+effect of interest and the subset of the population in which the effect is being
+computed. Otherwise, misunderstandings might easily arise when effect measures obtained via different methods are different.
+In our example above, one investigator who used IP weighting (and computed the effect in the entire population) and another one who used matching
+(and computed the effect in the untreated) need not engage in a debate about
+the superiority of one analytic approach over the other. Their discrepant effect
+measures result from the different causal question asked by each investigator
+rather than from their choice of analytic approach. In fact, the second investi-
+4.6 Effect modification and adjustment methods 55
+gator could have used IP weighting to compute the effect in the untreated or
+in the treated (see Technical Point 4.1).
+A final note. Stratification can be used to compute average causal effects
+in subsets of the population, but not individual (subject-specific) effects. As
+we have discussed earlier, individual causal effects can only be identified under
+extreme assumptions. See Fine Points 2.1 and 3.2.
+56 Effect modification
+Fine Point 4.3
+Collapsibility and the odds ratio. In the absence of multiplicative effect modification by V , the causal risk ratio in
+the entire population, Pr[Y
+a=1 = 1]/Pr[Y
+a=0 = 1] is equal to the conditional causal risk ratios Pr[Y
+a=1 = 1|V =
+v]/Pr[Y
+a=0 = 1|V = v] in every stratum v of V . More generally, the causal risk ratio is a weighted average of the
+stratum-specific risk ratios. For example, if the causal risk ratios in the strata V = 1 and V = 0 were equal to 2 and 3,
+respectively, then the causal risk ratio in the population would be greater than 2 and less than 3. That the value of the
+causal risk ratio (and the causal risk difference) in the population is always constrained by the range of values of the
+stratum-specific risk ratios is not only obvious but also a desirable characteristic of any effect measure.
+Now consider a hypothetical effect measure (other than the risk ratio or the risk difference) such that the population
+effect measure were not a weighted average of the stratum-specific measures. That is, the population effect measure
+would not necessarily lie inside of the range of values of the stratum-specific effect measures. Such effect measure would
+be an odd one. The odds ratio (pun intended) is such an effect measure, as we now discuss.
+Suppose the data in Table 4.4 were collected to compute the causal effect of altitude A on depression Y in a population
+of 20 individuals who were not depressed at baseline. The treatment A is 1 if the individual moved to a high altitude
+residence (on the top of Mount Olympus), 0 otherwise; the outcome Y is 1 if the individual subsequently developed
+depression, 0 otherwise; and V is 1 if the individual was a woman, 0 if a man. The decision to move was random,
+i.e., those more prone to develop depression were as likely to move as the others; effectively Y
+a⊥⊥A. Therefore the
+risk ratio Pr[Y = 1|A = 1]/Pr[Y = 1|A = 0] = 2.3 is the causal risk ratio in the population, and the odds ratio
+Pr[Y = 1|A = 1]/Pr[Y = 0|A = 1]
+Pr[Y = 1|A = 0]/Pr[Y = 0|A = 0] = 5.4 is the causal odds ratio Pr[Y
+a=1 = 1]/Pr[Y
+a=1 = 0]
+Pr[Y a=0 = 1]/Pr[Y a=0 = 0] in the population.
+The risk ratio and the odds ratio measure the same causal effect on different scales.
+Let us now compute the sex-specific causal effects on the risk ratio and odds ratio scales. The (conditional) causal
+risk ratio Pr[Y = 1|V = v, A = 1]/Pr[Y = 1|V = v, A = 0] is 2 for men (V = 0) and 3 for women (V = 1).
+The (conditional) causal odds ratio Pr[Y = 1|V = v, A = 1]/Pr[Y = 0|V = v, A = 1]
+Pr[Y = 1|V = v, A = 0]/Pr[Y = 0|V = v, A = 0] is 6 for men (V = 0) and 6 for
+women (V = 1). The causal risk ratio in the population, 2.3, is in between the sex-specific causal risk ratios 2 and 3. In
+contrast, the causal odds ratio in the population, 5.4, is smaller (i.e., closer to the null value) than both sex-specific odds
+ratios, 6. The causal effect, when measured on the odds ratio scale, is bigger in each half of the population than in the
+entire population. The population causal odds ratio can be closer to the null value than the non-null stratum-specific
+causal odds ratio when V is an independent risk factor for Y and, as in our randomized experiment, A is independent
+of V (Miettinen and Cook, 1981).
+We say that an effect measure is collapsible when the population effect measure can be expressed as a weighted
+average of the stratum-specific measures. In follow-up studies the risk ratio and the risk difference are collapsible effect
+measures, but the odds ratio—or the rarely used odds difference—is not (Greenland 1987). The noncollapsibility of the
+odds ratio, which is a special case of Jensen’s inequality (Samuels 1981), may lead to counterintuitive findings like those
+described above. The odds ratio is collapsible under the sharp null hypothesis—both the conditional and unconditional
+effect measures are then equal to the null value—and it is approximately collapsible—and approximately equal to the
+risk ratio—when the outcome is rare (say, < 10%) in every stratum of a follow-up study.
+One important consequence of the noncollapsibility of the odds ratio is the logical impossibility of equating “lack of
+exchangeability” and “change in the conditional odds ratio compared with the unconditional odds ratio.” In our example,
+the change in odds ratio was about 10% (1 − 6/5.4) even though the treated and the untreated were exchangeable.
+Greenland, Robins, and Pearl (1999) reviewed the relation between noncollapsibility and lack of exchangeability.
