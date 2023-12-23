@@ -120,8 +120,8 @@ research_summarization_prompt = ChatPromptTemplate.from_messages([
 scrape_and_summary_chain = RunnablePassthrough.assign(
     text = lambda x: scrape_text(x["url"])[:10000]
 ) | RunnablePassthrough.assign(
-    url_output = lambda x : x["url"],
-    summary_output = lambda x: RunnablePassthrough() | summary_prompt | ChatOpenAI(model=model_name) | StrOutputParser()
+    url_output = lambda x : x["url"], # THIS IS NOT NEEDED AS WE CAN CALL IT AFTER THE RUNNABLE
+    summary_output = lambda x: RunnablePassthrough() | summary_prompt | ChatOpenAI(model=model_name) | StrOutputParser() #LAMBDA IS NOT NEEDED AS IT IS BY DEFAULT A RUNABLE
 ) | (lambda x: f"URL: {x['url_output']}\n\n SUMMARY: {x['summary_output']}")
 
 web_url_chain = RunnablePassthrough.assign(
