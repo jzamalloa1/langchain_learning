@@ -2,6 +2,7 @@ from langchain.agents import AgentType
 from langchain_experimental.agents.agent_toolkits import create_pandas_dataframe_agent
 from langchain.callbacks import StreamlitCallbackHandler
 from langchain.chat_models import ChatOpenAI
+from openai import OpenAI
 import streamlit as st
 import pandas as pd
 import numpy as np
@@ -46,3 +47,32 @@ def init():
 
     if "thread_id" not in st.session_state:
         st.session_state.thread_id = []
+
+
+def set_apikey():
+    st.sidebar.header("Configure API Key")
+    api_key = st.sidebar.text_input("Enter your OpenAI API Key", type="password") # password is a valid type of input, the other is "default"
+
+    return api_key
+
+def config(client):
+    ais = client.beta.assistants.list(order="desc")
+
+    return ais
+
+def main():
+    st.title("El Bryan - AI Data Analyst Assistant")
+    st.caption("AI Assistant using OpenAI's API")
+    st.divider()
+
+    api_key = set_apikey()
+    
+    if api_key:
+        client = OpenAI(api_key=api_key)
+
+        ai_list = config(client)
+        st.write(ai_list)
+
+if __name__ == "__main__":
+    main()
+    # st.write(st.session_state)
