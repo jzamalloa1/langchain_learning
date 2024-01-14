@@ -70,6 +70,46 @@ def config(client):
     # This config returns the AI id
     return ais_dict[assistant_option]
 
+def delete_file(client, assistant_id, file_id):
+    # Deletes files from client
+    client.beta.assistants.files.delete(
+        assistant_id=assistant_id,
+        file_id=file_id
+    )
+
+def assistant_handler(client, assistant_id):
+    # Executes tasks on created assistants - WILL REDRAW SIDEBAR PORTION CREATED BY FIRST "IF STATEMENT" (see below)
+    # This is logical since this function is called as if the "create-assistant" option was never executed, and therefore
+    #  the create_assistant() sidebar was never drawn
+
+    ai = client.beta.assistants.retrieve(assistant_id)
+
+    # NOTE: Redrawing sidebar when assistant handler is called
+    with st.sidebar:
+        personal_ai_name = st.text_input("Name")
+        personal_ai_instructions = st.text_area("Instructions")
+        model_option = st.radio("Model", ("gpt-4", "gpt-3.5-turbo", "gpt-3.5-turbo-1106", "gpt-4-1106-preview", "nagging"))
+
+        # Option to upload files - This grid won't show up unless we upload files
+        st.subheader("Manage files")
+        grid = st.columns(2)
+
+        # Populate grid with file to handle them
+        for file_id in ai.file_ids:
+            with grid[0]:
+                st.text(file_id)
+
+            # Second column will allow user to delete files
+            with grid[1]:
+                st.button("Delete", 
+                          on_click=delete_file, 
+                          key=file_id,
+                          args=(client, assistant_id, file_id))
+        
+        # Add uploader
+        uploaded_file = st.file_uploader("Upload File", type=["txt", "csv", "pdf"])
+
+
 def create_new_assistant(client, personal_ai_name, personal_ai_instructions, model_option):
     new_ai = client.beta.assistants.create(
         name=personal_ai_name,
@@ -120,6 +160,7 @@ def create_assistant(client):
             
 
 
+
 def main():
     st.title("El Bryan - AI Data Analyst Assistant")
     st.caption("AI Assistant using OpenAI's API")
@@ -130,16 +171,22 @@ def main():
     if api_key:
         client = OpenAI(api_key=api_key)
 
+        # Returns the AI id and initiates AI list in dropdown menu, with "create-assistant" initially selected
         ai_id_option = config(client)
         
-        # Work on creating an AI assistant only if first option "create-assistant" is available
+        # This will be triggered first since by default "create-assistant" will be presented as the first available option when
+        #  config() is ran. As long as it is not changed, the first if statement will be executed
         if ai_id_option == "create-assistant":
             print("Creating AI assistant")
             with st.sidebar:
                 ai_option = create_assistant(client)
                 print(ai_option)
+        
+        # Once an assistant has been created or another option besides "create-assistant" is created, then the assistant-handler
+        #  will get to work
         else:
             st.write("other")
+            assistant_handler(client, ai_id_option)
 
 if __name__ == "__main__":
     main()
