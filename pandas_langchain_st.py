@@ -6,7 +6,7 @@ from openai import OpenAI
 import streamlit as st
 import pandas as pd
 import numpy as np
-import os
+import os, tempfile
 
 ############# To review Streamlit's session state: https://docs.streamlit.io/library/api-reference/session-state #############
 # st.set_page_config(page_title="Langchain agent 'El Bryan' - A pandas AI", page_icon="🦜")
@@ -42,8 +42,8 @@ def init():
     if "run" not in st.session_state:
         st.session_state.run = None
 
-    if "field_ids" not in st.session_state:
-        st.session_state.field_ids = []
+    if "file_ids" not in st.session_state:
+        st.session_state.file_ids = []
 
     if "thread_id" not in st.session_state:
         st.session_state.thread_id = []
@@ -84,10 +84,10 @@ def assistant_handler(client, assistant_id):
 
     ai = client.beta.assistants.retrieve(assistant_id)
 
-    # NOTE: Redrawing sidebar when assistant handler is called
+    # NOTE: Redrawing sidebar when assistant handler is called. Using ai's original values (as it should be)
     with st.sidebar:
-        personal_ai_name = st.text_input("Name")
-        personal_ai_instructions = st.text_area("Instructions")
+        personal_ai_name = st.text_input("Name", value=ai.name)
+        personal_ai_instructions = st.text_area("Instructions", value=ai.instructions)
         model_option = st.radio("Model", ("gpt-4", "gpt-3.5-turbo", "gpt-3.5-turbo-1106", "gpt-4-1106-preview", "nagging"))
 
         # Option to upload files - This grid won't show up unless we upload files
@@ -109,8 +109,68 @@ def assistant_handler(client, assistant_id):
         # Add uploader
         uploaded_file = st.file_uploader("Upload File", type=["txt", "csv", "pdf"])
 
+        # Make button to update API assistant based on file input - and new instructions (this seemes redundant)
+        # NOTE: This seems redundant, rather than coming from new text input, they should come from previously filled
+        #  name, instructions and model option (all part of the client's stored data)
+        if st.button("Update Assistant"):
+            ai = client.beta.assistants.update(
+                assistant_id = assistant_id,
+                name = personal_ai_name,
+                instructions = personal_ai_instructions,
+                model=model_option
+            )
+
+            # Add file if it exists to OpenAI and get its id in the client side of OpenAI (created function does this)
+            if uploaded_file is not None:
+                new_file_id = upload_file(client, assistant_id, uploaded_file)
+
+                # Append file id to session state
+                st.session_state.file_ids.append(new_file_id)
+
+                # Notify users
+                st.write("File uploaded succesfully")
+
+    # Return updated ai, model option and ai instrunctions
+    return ai, model_option, personal_ai_instructions
+
+def upload_file(client, assistant_id, uploaded_file):
+    # Function to upload file to OpenAI and get its ID from client's side in OpenAI
+
+    # NOTE: Usage of tempfile: https://docs.python.org/3/library/tempfile.html
+    # "Return a file-like object that can be used as a temporary storage area. The file is created securely, 
+    #  using the same rules as mkstemp(). It will be destroyed as soon as it is closed (including an implicit 
+    #  close when the object is garbage collected). Under Unix, the directory entry for the file is either not 
+    #  created at all or is removed immediately after the file is created"
+    # "This file-like object can be used in a with statement, just like a normal file." <--
+
+    # Open file and create it with a name
+    # delete=False argument will allow the file to exist after closing it
+    with tempfile.NamedTemporaryFile(delete=False) as tmp_file:
+        tmp_file.write(uploaded_file.getvalue())
+        tmp_file.close()
+
+        # Upload file to OpenAI (not added to our assistant, yet)
+        # NOTE: Usage of "files.create": https://platform.openai.com/docs/assistants/how-it-works/creating-assistants
+        with open(tmp_file.name, "rb") as f:
+            response = client.files.create(
+                file=f,
+                purpose="assistants"
+            )
+            print(response)
+
+            # Remove file after adding it to clien
+            os.remove(tmp_file.name)
+
+    # Attach file id to assistant id so that you can call the file id from the assistant
+    ai_file = client.beta.assistants.files.create(
+        assistant_id=assistant_id,
+        file_id=response.id
+    )
+
+    return ai_file.id
 
 def create_new_assistant(client, personal_ai_name, personal_ai_instructions, model_option):
+    # Create new AI assistant based on user's input. 
     new_ai = client.beta.assistants.create(
         name=personal_ai_name,
         instructions = personal_ai_instructions,
@@ -159,8 +219,6 @@ def create_assistant(client):
         st.warning("AI name already exists, try another one")
             
 
-
-
 def main():
     st.title("El Bryan - AI Data Analyst Assistant")
     st.caption("AI Assistant using OpenAI's API")
@@ -186,8 +244,15 @@ def main():
         #  will get to work
         else:
             st.write("other")
-            assistant_handler(client, ai_id_option)
+
+            # Return update AI with options, file in the system and instructions
+            st.session_state.current_assistant, st.session_state.model_option, st.session_state.assistant_instructions = assistant_handler(client, ai_id_option)
 
 if __name__ == "__main__":
+
+    # Initialize session state variables
+    init()
+
+    # Call main function
     main()
     # st.write(st.session_state)
