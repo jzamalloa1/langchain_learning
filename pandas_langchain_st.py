@@ -243,10 +243,65 @@ def main():
         # Once an assistant has been created or another option besides "create-assistant" is created, then the assistant-handler
         #  will get to work
         else:
-            st.write("other")
+            st.write("Using created assistant")
 
             # Return update AI with options, file in the system and instructions
             st.session_state.current_assistant, st.session_state.model_option, st.session_state.assistant_instructions = assistant_handler(client, ai_id_option)
+            
+            # Instantiate thread ID (if it doesn't exist):
+            # NOTE: Context on threads: https://platform.openai.com/docs/assistants/how-it-works/objects
+            # "Thread: A conversation session between an Assistant and a user. Threads store Messages and 
+            #  automatically handle truncation to fit content into a model’s context."
+            # You store messages in a Thread
+            if st.session_state.thread_id is None:
+                st.session_state.thread_id = client.beta.threads.create().id
+                print("Thread created", st.session_state.thread_id)
+            
+            # Create chat prompt function to call chat
+            chat_prompt(client, ai_id_option)
+
+def chat_prompt(client, assistant_option):
+
+    # Make placeholde
+    # NOTE: On streamlit empty: https://docs.streamlit.io/library/api-reference/layout/st.empty
+    placeholder = st.empty()
+
+    # If prompt is added, then modify contents of placeholder to add prompts
+    if prompt := st.chat_input("Enter your message here"):
+        with placeholder.container():
+            with st.chat_message("user"):
+                st.markdown(prompt)
+
+        # Place message in session from threads, from clien'ts API call
+        st.session_state.messages = client.beta.threads.messages.create(
+            thread_id = st.session_state.thread_id,
+            role="user",
+            content=prompt
+        )
+
+        # Then update assistant with session's state variables
+        st.session_state.current_assistant = client.beta.assistants.update(
+            st.session_state.current_assistant.id,
+            instructions = st.session_state.assistant_instructions,
+            name = st.session_state.current_assistant.name,
+            tools = st.session_state.current_assistant.tools,
+            model = st.session_state.model_option,
+            file_ids = st.session_state.file_ids
+        )
+
+        # Then add the run
+        st.session_state.run = client.beta.threads.run.create(
+            thread_id = st.session_state.thread_id,
+            assistant_id = assistant_option,
+            tools = [
+                {
+                    "type":"code_interpreter"
+                }
+            ]
+        )
+
+        print(st.session_state.run)
+        pending=False
 
 if __name__ == "__main__":
 
