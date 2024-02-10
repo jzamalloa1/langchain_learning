@@ -4,8 +4,15 @@ from langchain_community.document_loaders import UnstructuredWordDocumentLoader
 from langchain_community.vectorstores import Chroma, FAISS
 from langchain_core.runnables import RunnableLambda, RunnablePassthrough
 from langchain_core.output_parsers import StrOutputParser
-from langchain_openai import OpenAIEmbeddings, ChatOpenAI
+from langchain_openai import OpenAIEmbeddings, ChatOpenAI, OpenAI
+from langsmith import Client
 from langchain import hub
+import os
+
+# Trace in LangSmith - Unquote if you are interesting tracking through Langsmith
+os.environ["LANGCHAIN_TRACING_V2"] = "true"
+# os.environ["LANGCHAIN_API_KEY"] = ""
+# client = Client()
 
 # Display title
 st.title('🦜🔗 ETL RAG App')
@@ -69,14 +76,15 @@ def main():
         with st.form("rag_form"):
 
             # Ask user to enter ETL related question
-            query = st.text_area("OMOP ETL Related question:", "'how can I query condition_occurrence?'")
+            query = st.text_area("OMOP ETL Related question:", "how can I query condition_occurrence?")
+            # Sample question 2: "what is the new name for the column named "source_concept_id" in the condition_occurrence table?"
 
             # Creqte submit button
             submitted = st.form_submit_button("Submit Q")
 
             # Call RAG if correct OpenAI API key is being used
             if submitted:
-                rag_etl(openai_api_key, query, prompt, retriever)
+                rag_etl(openai_api_key, query, retriever, prompt)
 
     else:
         st.warning('Please enter a valid OpenAI API key')
