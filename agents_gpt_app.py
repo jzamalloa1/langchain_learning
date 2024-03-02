@@ -11,6 +11,8 @@ from langchain_core.utils.function_calling import convert_to_openai_tool
 from langchain.tools.retriever import create_retriever_tool
 from langchain.output_parsers import JsonOutputToolsParser, JsonOutputKeyToolsParser
 from langchain.agents import create_openai_tools_agent, AgentExecutor
+from langchain.agents.format_scratchpad.openai_tools import format_to_openai_tool_messages
+from langchain.agents.output_parsers.openai_tools import OpenAIToolsAgentOutputParser
 from langchain import hub
 
 st.title("Agent Streamer :linked_paperclips:") # More icons at https://streamlit-emoji-shortcodes-streamlit-app-gwckff.streamlit.app/
