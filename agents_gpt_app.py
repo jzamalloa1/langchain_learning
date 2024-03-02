@@ -43,6 +43,22 @@ def main():
                 with st.chat_message("Human"):
                     st.markdown(m["content"])
 
+        # Accept and render initial user input
+        prompt = st.chat_input("Como quieres que El Gordo te ilumine hoy?")
+
+        if prompt:
+
+            # Render to user's container
+            with st.chat_message("Human"):
+                st.markdown(prompt)
+
+            # Append to chat history in session state (to both have it in history and render)
+            st.session_state.chat_history.append(
+                HumanMessage(content=prompt)
+                )
+            
+            # Get Anget to work....
+
     else:
         st.warning("Please enter an Open API Key to get started")
 
