@@ -27,8 +27,21 @@ def main():
                 AIMessage(content="Hello, I'm your AI assistant. How can I can help you?")
             ]
         
-        if "vector_store" not in st.session_state:
-            st.session_state.vector_store
+        # if "vector_store" not in st.session_state:
+        #     st.session_state.vector_store
+            
+        # Initialize LLM model
+        llm = ChatOpenAI(model=st.session_state["openai_model"], 
+                        temperature=0.1, streaming=True, api_key=openai_api_key)
+        
+        # Render chat messages in role containers
+        for m in st.session_state["chat_history"]:
+            if isinstance(m, AIMessage):
+                with st.chat_message("AI"):
+                    st.markdown(m["content"])
+            elif isinstance(m, HumanMessage):
+                with st.chat_message("Human"):
+                    st.markdown(m["content"])
 
     else:
         st.warning("Please enter an Open API Key to get started")
