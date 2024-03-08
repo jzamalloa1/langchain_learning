@@ -62,38 +62,45 @@ def main():
                     st.markdown(m["content"])
 
         # Accept and render initial user input
-        prompt = st.chat_input("Como quieres que El Gordo te ilumine hoy?")
+        user_input = st.chat_input("Como quieres que El Gordo te ilumine hoy?")
 
-        if prompt:
+        if user_input:
 
             # Render user's query exchange to user's container in Chat
             with st.chat_message("Human"):
-                st.markdown(prompt)
-
-            # Append user's query exchange to chat history in session state (to both have it in history and render)
-            st.session_state.chat_history.append(
-                HumanMessage(content=prompt)
-                )
+                st.markdown(user_input)
             
             # Get Agent to work. Include chat history
-            agent_interaction_object = get_ai_reponse(llm_with_tools = llm_bound_tools, 
-                                                   chat_history = st.session_state.chat_history,
-                                                   prompt = st.session_state.prompt,
-                                                   tool_box = st.session_state.tool_box)
-
-            # Update session state chat history (so it remains)
-            st.session_state.chat_history.append(
-                AIMessage(content = agent_interaction_object["output"])
-            )
+            agent_interaction_object = get_ai_executor(llm_with_tools = llm_bound_tools, 
+                                                       prompt = st.session_state.prompt,
+                                                       tool_box = st.session_state.tool_box)
 
             # Render AI response to AI's container Chat
             with st.chat_message("AI"):
 
+                # Get agent streaming chunks output on user's input
+                ai_response_stream = agent_interaction_object.astream(
+                    {
+                        "input":user_input,
+                        "history": st.session_state.chat_history, # Saved from session state
+                    }
+                )
+
+                # Render streaming response to AI's container
+                ai_response_content = st.write_stream(ai_response_stream) # NEEDS WORK
+
+                # Update session state chat history with user's input exchange and agent's output (so it remains in history and we can render them)
+                st.session_state.chat_history.extend(
+                    [
+                        HumanMessage(content=user_input),
+                        AIMessage(content = agent_interaction_object["output"]) # NEEDS A LOT WORK
+                    ]
+                )
 
     else:
         st.warning("Please enter an Open API Key to get started")
 
-def get_ai_response(llm_with_tools, chat_history, prompt, tool_box):
+def get_ai_executor(llm_with_tools prompt, tool_box):
 
     # Create agent
     agent = (
@@ -103,22 +110,16 @@ def get_ai_response(llm_with_tools, chat_history, prompt, tool_box):
             "chat_history": lambda x: x["chat_history"] # Part of the prompt as well
         }
         | prompt
-        | llm_with_tools
+        | llm_with_tools.with_config({"tags": ["agent_llm"]}) # FOR STREAMING
         | OpenAIToolsAgentOutputParser()
     )
 
     # Create agent executor
     agent_executor = AgentExecutor(agent=agent,
                                    tools=tool_box,
-                                   verbose=True)
+                                   verbose=True).with_config({"run_name":"Agent"}) # FOR STREAMING
 
-    # Interact with agent and get agent's response
-    agent_output = agent_executor.invoke({
-        "input":"",
-        "chat_history": chat_history #Integrating memory through chat history
-    })
-
-    return agent_output
+    return agent_executor
 
 def get_tool_box():
     tools = []
