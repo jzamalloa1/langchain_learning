@@ -25,6 +25,10 @@ def main():
     # Check if it is a valid Open API key and if so, continue with app
     if openai_api_key.startswith("sk-"):
         
+        # Initiatize in session state default model
+        if "openai_model" not in st.session_state:
+            st.session_state["openai_model"] = "gpt-3.5-turbo"
+
         # Initialize chat history and vector store in session state
         if "chat_history" not in st.session_state:
             st.session_state.chat_history = [
@@ -41,10 +45,13 @@ def main():
         if "tools" not in st.session_state:
             st.session_state.tools = get_tool_box()
 
-        # Initialize LLM model
+        # Initialize LLM
         llm = ChatOpenAI(model=st.session_state["openai_model"], 
                         temperature=0.1, streaming=True, api_key=openai_api_key)
         
+        # Bind tools to LLM 
+        llm_bound_tools = llm.bind_tools(st.session_state.tools)
+
         # Render chat messages in role containers
         for m in st.session_state["chat_history"]:
             if isinstance(m, AIMessage):
@@ -59,28 +66,46 @@ def main():
 
         if prompt:
 
-            # Render to user's container
+            # Render user's query exchange to user's container in Chat
             with st.chat_message("Human"):
                 st.markdown(prompt)
 
-            # Append to chat history in session state (to both have it in history and render)
+            # Append user's query exchange to chat history in session state (to both have it in history and render)
             st.session_state.chat_history.append(
                 HumanMessage(content=prompt)
                 )
             
-            # Get Agent to work....
-            agent_response_object = get_ai_reponse(llm_model = llm, 
+            # Get Agent to work. Include chat history
+            agent_interaction_object = get_ai_reponse(llm_with_tools = llm_bound_tools, 
                                                    chat_history = st.session_state.chat_history,
                                                    prompt = st.session_state.prompt,
                                                    tool_box = st.session_state.tool_box)
 
+            # Update session state chat history (so it remains)
+            st.session_state.chat_history.append(
+                AIMessage(content = agent_interaction_object["output"])
+            )
+
+            # Render AI response to AI's container Chat
+            with st.chat_message("AI"):
+
+
     else:
         st.warning("Please enter an Open API Key to get started")
 
-def get_ai_response(llm_model, chat_history, prompt, tool_box):
+def get_ai_response(llm_with_tools, chat_history, prompt, tool_box):
 
     # Create agent
-    agent = create_openai_tools_agent(llm_model, tool_box, prompt)
+    agent = (
+        {
+            "input": lambda x: x["input"],
+            "agent_scratchpad": lambda x: format_to_openai_tool_messages(x["intermediate_steps"]), # Part of the prompt as well
+            "chat_history": lambda x: x["chat_history"] # Part of the prompt as well
+        }
+        | prompt
+        | llm_with_tools
+        | OpenAIToolsAgentOutputParser()
+    )
 
     # Create agent executor
     agent_executor = AgentExecutor(agent=agent,
@@ -89,7 +114,8 @@ def get_ai_response(llm_model, chat_history, prompt, tool_box):
 
     # Interact with agent and get agent's response
     agent_output = agent_executor.invoke({
-        "input":""
+        "input":"",
+        "chat_history": chat_history #Integrating memory through chat history
     })
 
     return agent_output
