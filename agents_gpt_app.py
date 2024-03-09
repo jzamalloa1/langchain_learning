@@ -4,6 +4,7 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
+import random
 from langchain_openai import OpenAIEmbeddings, ChatOpenAI
 from langchain_core.messages import AIMessage, HumanMessage, SystemMessage
 from langchain_core.runnables import RunnableLambda, RunnablePassthrough
@@ -14,6 +15,7 @@ from langchain.agents import create_openai_tools_agent, AgentExecutor
 from langchain.agents.format_scratchpad.openai_tools import format_to_openai_tool_messages
 from langchain.agents.output_parsers.openai_tools import OpenAIToolsAgentOutputParser
 from langchain import hub
+from langchain.tools import tool
 
 st.title("Agent Streamer :linked_paperclips:") # More icons at https://streamlit-emoji-shortcodes-streamlit-app-gwckff.streamlit.app/
 
@@ -42,24 +44,24 @@ def main():
         if "prompt" not in st.session_state:
             st.session_state.prompt = hub.pull("hwchase17/openai-tools-agent")
 
-        if "tools" not in st.session_state:
-            st.session_state.tools = get_tool_box()
+        if "tool_box" not in st.session_state:
+            st.session_state.tool_box = get_tool_box()
 
         # Initialize LLM
         llm = ChatOpenAI(model=st.session_state["openai_model"], 
                         temperature=0.1, streaming=True, api_key=openai_api_key)
         
         # Bind tools to LLM 
-        llm_bound_tools = llm.bind_tools(st.session_state.tools)
+        llm_bound_tools = llm.bind_tools(st.session_state.tool_box)
 
         # Render chat messages in role containers
-        for m in st.session_state["chat_history"]:
+        for m in st.session_state.chat_history:
             if isinstance(m, AIMessage):
                 with st.chat_message("AI"):
-                    st.markdown(m["content"])
+                    st.markdown(m.content)
             elif isinstance(m, HumanMessage):
                 with st.chat_message("Human"):
-                    st.markdown(m["content"])
+                    st.markdown(m.content)
 
         # Accept and render initial user input
         user_input = st.chat_input("Como quieres que El Gordo te ilumine hoy?")
@@ -79,10 +81,10 @@ def main():
             with st.chat_message("AI"):
 
                 # Get agent streaming chunks output on user's input
-                ai_response_stream = agent_interaction_object.astream(
+                ai_response_stream = agent_interaction_object.stream(
                     {
                         "input":user_input,
-                        "history": st.session_state.chat_history, # Saved from session state
+                        "chat_history": st.session_state.chat_history, # Saved from session state
                     }
                 )
 
@@ -93,14 +95,14 @@ def main():
                 st.session_state.chat_history.extend(
                     [
                         HumanMessage(content=user_input),
-                        AIMessage(content = agent_interaction_object["output"]) # NEEDS A LOT WORK
+                        AIMessage(content = ai_response_content[-1]["output"]) # NEEDS A LOT WORK
                     ]
                 )
 
     else:
         st.warning("Please enter an Open API Key to get started")
 
-def get_ai_executor(llm_with_tools prompt, tool_box):
+def get_ai_executor(llm_with_tools, prompt, tool_box):
 
     # Create agent
     agent = (
@@ -121,8 +123,15 @@ def get_ai_executor(llm_with_tools prompt, tool_box):
 
     return agent_executor
 
+@tool
+def where_cat_is_hiding() -> str:
+    """Where is the cat hiding right now?"""
+    return random.choice(["under the bed", "on the shelf"])
+
+
 def get_tool_box():
-    tools = []
+    
+    tools = [where_cat_is_hiding]
 
     return tools
 
