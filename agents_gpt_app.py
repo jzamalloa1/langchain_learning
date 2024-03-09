@@ -16,6 +16,7 @@ from langchain.agents.format_scratchpad.openai_tools import format_to_openai_too
 from langchain.agents.output_parsers.openai_tools import OpenAIToolsAgentOutputParser
 from langchain import hub
 from langchain.tools import tool
+from langchain_community.callbacks.streamlit import StreamlitCallbackHandler # Specifically to stream agent tool output to container
 
 st.title("Agent Streamer :linked_paperclips:") # More icons at https://streamlit-emoji-shortcodes-streamlit-app-gwckff.streamlit.app/
 
@@ -40,7 +41,7 @@ def main():
         # if "vector_store" not in st.session_state:
         #     st.session_state.vector_store
 
-        # Initialize prompt and tools in session state
+        # Initialize prompt, tools and streamlit callback (for agent tool streaming) in session state
         if "prompt" not in st.session_state:
             st.session_state.prompt = hub.pull("hwchase17/openai-tools-agent")
 
@@ -79,23 +80,39 @@ def main():
 
             # Render AI response to AI's container Chat
             with st.chat_message("AI"):
-
-                # Get agent streaming chunks output on user's input
-                ai_response_stream = agent_interaction_object.stream(
+                
+                # Initalize st callback handler to stream tool output in container
+                st_callback = StreamlitCallbackHandler(st.container())
+                
+                # Invoke agent as usual and add callback
+                ai_response = agent_interaction_object.invoke(
                     {
                         "input":user_input,
                         "chat_history": st.session_state.chat_history, # Saved from session state
+                    },
+                    {
+                        "callbacks": [st_callback]
                     }
                 )
+                
+                ai_response_content = st.write(ai_response["output"])
+
+                # Get agent streaming chunks output on user's input
+                # ai_response_stream = agent_interaction_object.stream(
+                #     {
+                #         "input":user_input,
+                #         "chat_history": st.session_state.chat_history, # Saved from session state
+                #     }
+                # )
 
                 # Render streaming response to AI's container
-                ai_response_content = st.write_stream(ai_response_stream) # NEEDS WORK
+                # ai_response_content = st.write_stream(ai_response_stream) # NEEDS WORK
 
                 # Update session state chat history with user's input exchange and agent's output (so it remains in history and we can render them)
                 st.session_state.chat_history.extend(
                     [
                         HumanMessage(content=user_input),
-                        AIMessage(content = ai_response_content[-1]["output"]) # NEEDS A LOT WORK
+                        AIMessage(content = ai_response_content["output"]) # NEEDS A LOT WORK
                     ]
                 )
 
