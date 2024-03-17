@@ -17,8 +17,53 @@ from langchain.agents.output_parsers.openai_tools import OpenAIToolsAgentOutputP
 from langchain import hub
 from langchain.tools import tool
 from langchain_community.callbacks.streamlit import StreamlitCallbackHandler # Specifically to stream agent tool output to container
+from langchain.prompts import SystemMessagePromptTemplate, PromptTemplate
 
 st.title("Agent Streamer :linked_paperclips:") # More icons at https://streamlit-emoji-shortcodes-streamlit-app-gwckff.streamlit.app/
+
+def prompt_modifier():
+    
+    mod_prompt = hub.pull("hwchase17/openai-tools-agent")
+
+    # system_prompt ="""
+    # You are a helpful assistant. Assistant has access to the following tools: {tools}
+
+    # To use a tool, please use the following format:
+
+    # ```
+    # Thought: Do I need to use a tool? Yes
+    # Action: the action to take, should be one of [one of the tools provided]
+    # Action Input: the input to the action
+    # Observation: the result of the action
+    # ```
+
+    # When you have a response to say to the Human, or if you do not need to use a tool, you MUST use the format:
+
+    # ```
+    # Thought: Do I need to use a tool? No
+    # Final Answer: [your response here]
+    # ```
+
+    # """
+
+    # mod_prompt.messages[0] = (
+    #     SystemMessagePromptTemplate(prompt = PromptTemplate(input_variables=["tools"],
+    #                                                         template=system_prompt))
+    # )
+
+    system_prompt = """
+    You are a helpful assistant who will answer the User's questions. You will demonstrate your
+    reasoning whenever you are answering a question. You have access to tools.
+    You will try to ask questions to the user whenever you are comtemplating using a tool.
+    You will ask for confirmation from the User whenever you are about to use a tool.
+    """
+
+    mod_prompt.messages[0] = (
+        SystemMessagePromptTemplate(prompt = PromptTemplate(input_variables=[],
+                                                            template=system_prompt))
+    )
+
+    return mod_prompt
 
 def main():
     
@@ -30,7 +75,7 @@ def main():
         
         # Initiatize in session state default model
         if "openai_model" not in st.session_state:
-            st.session_state["openai_model"] = "gpt-3.5-turbo"
+            st.session_state["openai_model"] = "gpt-4-turbo-preview" # "gpt-3.5-turbo"
 
         # Initialize chat history and vector store in session state
         if "chat_history" not in st.session_state:
@@ -43,7 +88,7 @@ def main():
 
         # Initialize prompt, tools and streamlit callback (for agent tool streaming) in session state
         if "prompt" not in st.session_state:
-            st.session_state.prompt = hub.pull("hwchase17/openai-tools-agent")
+            st.session_state.prompt = prompt_modifier()
 
         if "tool_box" not in st.session_state:
             st.session_state.tool_box = get_tool_box()
@@ -95,8 +140,7 @@ def main():
                     }
                 )
                 
-                ai_response_content = st.write(ai_response["output"])
-
+                st.write(ai_response["output"])
                 # Get agent streaming chunks output on user's input
                 # ai_response_stream = agent_interaction_object.stream(
                 #     {
@@ -107,12 +151,11 @@ def main():
 
                 # Render streaming response to AI's container
                 # ai_response_content = st.write_stream(ai_response_stream) # NEEDS WORK
-
                 # Update session state chat history with user's input exchange and agent's output (so it remains in history and we can render them)
                 st.session_state.chat_history.extend(
                     [
                         HumanMessage(content=user_input),
-                        AIMessage(content = ai_response_content["output"]) # NEEDS A LOT WORK
+                        AIMessage(content = ai_response["output"]) # NEEDS A LOT WORK
                     ]
                 )
 
@@ -145,10 +188,38 @@ def where_cat_is_hiding() -> str:
     """Where is the cat hiding right now?"""
     return random.choice(["under the bed", "on the shelf"])
 
+@tool
+def px_trend_compare(data:str, col1:str, col2:str):
+    """Only use this tool for plotly express stock data.
+    Creates a line chart using plotly of two columns
+    'col1' and 'col2,' which are two stock market ticker symbols,
+    tracking their value over time. The data is
+    available in 'data' stored in plotly express.
+    Assign a different color for each line 'col1' and 'col2.'
+
+    Args:
+        data: Table name in plotly express
+        col1: Stock market ticker symbol
+        col2: Another stock market ticker symbol
+
+    """
+
+    import plotly.express as px
+
+    data_module = getattr(px.data, data)
+    df = data_module()
+
+    df = (df
+          .melt(id_vars="date", value_vars=[col1, col2])
+    )
+
+    fig = px.line(df, x='date', y='value', color='variable')
+    
+    return st.plotly_chart(fig)
 
 def get_tool_box():
     
-    tools = [where_cat_is_hiding]
+    tools = [where_cat_is_hiding, px_trend_compare]
 
     return tools
 
